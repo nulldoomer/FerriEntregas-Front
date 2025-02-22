@@ -1,0 +1,7 @@
+{
+  "name": "FerriEntregas-Front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
