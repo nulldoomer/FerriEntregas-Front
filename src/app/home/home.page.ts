@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,26 +7,15 @@ import { NavController } from '@ionic/angular';
   standalone: false,
 })
 export class HomePage {
-email: any;
-password: any;
-selectedSegment: string = 'login';
+  email: any;
+  password: any;
+  selectedSegment: string = 'login';
 
-login() {
-throw new Error('Method not implemented.');
-}
-
-  constructor(private nav: NavController) {}
-
-  distancia() {
-    this.nav.navigateBack('/distancia')
+  login() {
+    throw new Error('Method not implemented.');
   }
 
-  peso() {
-    this.nav.navigateBack('/peso')
-  }
+  constructor() { }
 
-  temperatura() {
-    this.nav.navigateBack('/temperatura')
-  }
 
 }
