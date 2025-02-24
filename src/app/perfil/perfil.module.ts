@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InicioPageRoutingModule } from './inicio-routing.module';
+import { PerfilPageRoutingModule } from './perfil-routing.module';
 
-import { InicioPage } from './inicio.page';
+import { PerfilPage } from './perfil.page';
 import { FooterPageModule } from '../footer/footer.module';
 
 @NgModule({
@@ -14,9 +14,10 @@ import { FooterPageModule } from '../footer/footer.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    InicioPageRoutingModule,
+    PerfilPageRoutingModule,
     FooterPageModule
+
   ],
-  declarations: [InicioPage]
+  declarations: [PerfilPage]
 })
-export class InicioPageModule {}
+export class PerfilPageModule {}
