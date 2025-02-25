@@ -46,9 +46,15 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
-  },  {
+  },
+  {
     path: 'opciones',
     loadChildren: () => import('./opciones/opciones.module').then( m => m.OpcionesPageModule)
+    
+  },
+  {
+    path: 'entrega-info',
+    loadChildren: () => import('./entrega-info/entrega-info.module').then( m => m.EntregaInfoPageModule)
   },
 
 
