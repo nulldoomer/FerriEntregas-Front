@@ -10,12 +10,12 @@ import { IonInfiniteScrollCustomEvent } from '@ionic/core';
 
 })
 export class InicioPage implements OnInit {
-loadData($event: IonInfiniteScrollCustomEvent<void>) {
-throw new Error('Method not implemented.');
-}
+  loadData($event: IonInfiniteScrollCustomEvent<void>) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(
-   private navController: NavController,
+    private navController: NavController,
 
 
   ) { }
@@ -26,12 +26,16 @@ throw new Error('Method not implemented.');
       this.items.push(`Item ${i}`);
     }
   }
-  
+
   goToErrorPage() {
     this.navController.navigateForward('error-page');
   }
   goToNotificationsPage() {
     this.navController.navigateForward('notifications');
+  }
+  goToEntregaInfo(item: string) {
+
+    this.navController.navigateForward('entrega-info');
   }
 
 }
