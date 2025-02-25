@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,10 @@ export class HomePage {
     throw new Error('Method not implemented.');
   }
 
-  constructor() { }
+  constructor(   private navController: NavController,
+  ) { }
 
-
+  goToNotificationsPage() {
+    this.navController.navigateForward('inicio');
+  }
 }

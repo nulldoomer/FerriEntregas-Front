@@ -33,5 +33,8 @@ throw new Error('Method not implemented.');
   goToNotificationsPage() {
     this.navController.navigateForward('notifications');
   }
+  goroote(roote: string) {
+    this.navController.navigateForward(roote);
+  }
 
 }

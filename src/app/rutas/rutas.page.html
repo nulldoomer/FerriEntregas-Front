@@ -4,13 +4,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar class="h-8"> 
-      <ion-title size="large">Rutas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Botón para abrir Google Maps con la ruta -->
+  <ion-button (click)="openGoogleMapsRoute()">Abrir Ruta en Google Maps</ion-button>
 </ion-content>
 
 <app-footer></app-footer>
-
