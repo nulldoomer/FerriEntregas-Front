@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonModal } from '@ionic/angular';
+import { IonModal, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-entrega-info',
@@ -10,10 +10,10 @@ import { IonModal } from '@ionic/angular';
 export class EntregaInfoPage implements OnInit {
   @ViewChild('modal', { static: true }) modal!: IonModal;
 
-  constructor() { }
+  constructor(private navController: NavController) { }
 
   ngOnInit(): void {
-    this.openGoogleMapsRoute();
+    // this.openGoogleMapsRoute();
   }
 
   ionViewWillLeave() {
@@ -22,6 +22,9 @@ export class EntregaInfoPage implements OnInit {
     }
   }
 
+  goBackInicio() {
+    this.navController.back();
+  }
   openGoogleMapsRoute() {
     const origin = 'Ambato,Ecuador';
     const destination = 'Latacunga,Ecuador';

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Información Entrega</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button (click)="goBackInicio()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,54 +11,52 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
+        <ion-back-button (click)="goBackInicio()"></ion-back-button>
       </ion-buttons>
       <ion-title size="large">Información Entrega</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-------------------------------------------------- MODAL ---------------------------------------------->
   <ion-modal #modal trigger="open-modal" [isOpen]="true" [initialBreakpoint]="0.25" [breakpoints]="[0.25, 0.5, 0.75]"
     [backdropDismiss]="false" [backdropBreakpoint]="0.5">
     <ng-template>
       <ion-content class="ion-padding">
-        <ion-searchbar placeholder="Search" (click)="modal.setCurrentBreakpoint(0.75)"></ion-searchbar>
-        <ion-list>
-          <ion-item>
-            <ion-avatar slot="start">
-              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>Connor Smith</h2>
-              <p>Sales Rep</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-avatar slot="start">
-              <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>Daniel Smith</h2>
-              <p>Product Designer</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-avatar slot="start">
-              <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>Greg Smith</h2>
-              <p>Director of Operations</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-avatar slot="start">
-              <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>Zoey Smith</h2>
-              <p>CEO</p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
+        <ion-label class="block font-bold px-10 text-black"> Your Package is on the way</ion-label>
+        <ion-label class="block px-10 !text-gray-400">Arriving at pick up point 2min</ion-label>
+        <ion-item>
+          <ion-avatar slot="start">
+            <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+          </ion-avatar>
+          <ion-label>
+            <h2>Connor Smith</h2>
+            <p>
+              <ion-icon name="star" class="pl-2 text-orange-500 "></ion-icon>
+              4.9
+              <ion-icon name="call" class="absolute right-10 top-1/2 -translate-y-1/2 !text-black"></ion-icon>
+              <ion-icon name="chatbox-ellipses"
+                class="absolute right-2 top-1/2 -translate-y-1/2 !text-black"></ion-icon>
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>M213N343</h2>
+            <p>Track number</p>
+          </ion-label>
+          <ion-label>
+            <h2>1-3 Hours</h2>
+            <p>Estimated Time</p>
+          </ion-label>
+          <ion-label>
+            <h2>5.5kg</h2>
+            <p>Package Weight</p>
+          </ion-label>
+        </ion-item>
+        <div class="flex-grow"></div>
+        <div class="flex justify-center mb-4">
+          <ion-button shape="round" style="--background: #FD683D;">Mark as Done</ion-button>
+        </div>
       </ion-content>
     </ng-template>
   </ion-modal>
