@@ -15,14 +15,11 @@ export class InicioPage implements OnInit, AfterViewInit {
   limit = 10;
   loading = false;
   private subscriptions: Subscription = new Subscription(); 
-
   @ViewChild('loadTrigger', { static: false }) loadTrigger!: ElementRef;
-
   constructor(
     private navController: NavController,
     private pokemonService: PokemonService
   ) {}
-
   ngOnInit() {
     this.loadPokemons();
   }
@@ -40,7 +37,6 @@ export class InicioPage implements OnInit, AfterViewInit {
       observer.observe(this.loadTrigger.nativeElement);
     }
   }
-
   loadPokemons() {
     if (this.loading) return;
     this.loading = true;
@@ -60,15 +56,12 @@ export class InicioPage implements OnInit, AfterViewInit {
       })
     );
   }
-
   goToNotificationsPage() {
     this.navController.navigateForward('/notifications');
   }
-
   goroote(route: string) {
     this.navController.navigateForward(route);
   }
-
   goToEntregaInfo(item: string) {
     this.navController.navigateForward('admin/entrega-info');
   }

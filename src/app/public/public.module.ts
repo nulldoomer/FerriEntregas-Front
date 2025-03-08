@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   declarations: [HomePage],
@@ -17,6 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     PublicRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class PublicModule { }
