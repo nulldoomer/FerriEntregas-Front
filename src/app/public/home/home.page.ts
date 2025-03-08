@@ -27,6 +27,7 @@ submit() {
         this.navController.navigateForward('admin/inicio');
       },
       (error) => {
+        
         console.error('Error during login:', error);
 
       }

@@ -8,11 +8,13 @@ import { IonicModule } from '@ionic/angular';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { ConfirmEmailPage } from './confirm-email/confirm-email.page';
 
 @NgModule({
-  declarations: [HomePage],
+  declarations: [HomePage, ConfirmEmailPage],
   imports: [
     CommonModule,
+
     FormsModule,
     IonicModule,
     PublicRoutingModule,
