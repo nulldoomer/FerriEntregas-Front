@@ -5,7 +5,8 @@ import { PublicRoutingModule } from './public-routing.module';
 import { HomePage } from './home/home.page';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
+import { MaterialModule } from '../material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomePage],
@@ -13,7 +14,9 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     FormsModule,
     IonicModule,
-    PublicRoutingModule
+    PublicRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule,
   ]
 })
 export class PublicModule { }
