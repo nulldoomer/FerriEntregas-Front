@@ -57,70 +57,58 @@
 
     @if (selectedSegment == 'login') {
 
-      <form class="space-y-4" [formGroup]="form" (ngSubmit)="submit()">
-        <div>
-          <label class="block text-sm font-medium text-black">Email</label>
-          <div class="relative">
-            <ion-icon name="mail-outline"
-              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
-            <input type="email"
-              class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-              placeholder="your@email.com" formControlName="email" />
-              
-            <!-- Contenedor del mensaje de error alineado a la derecha debajo del input -->
-            <div class="absolute right-0 mt-1 text-red-600 text-sm error-msg w-max">
-              @if(fControls['email'].touched && fControls['email'].invalid) {
-                @if(fControls['email'].errors && fControls['email'].errors['required']) {
-                  <div>Nombre de Usuario Requerido</div>
-                } @else if(fControls['email'].errors && fControls['email'].errors['email']) {
-                  <div>Nombre de usuario Inválido</div>
-                }
-              }
-            </div>
-          </div>
-        </div>
-              
-        <div>
-          <label class="block text-sm font-medium text-black">Email</label>
-          <div class="relative">
-            <ion-icon name="document-lock-outline"
-              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
-            <input type="password"
-              class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-              placeholder="*******" formControlName="password" />
-              
-            <!-- Contenedor del mensaje de error alineado a la derecha debajo del input -->
-            <div class="absolute right-0 mt-1 text-red-600 text-sm error-msg w-max">
-              @if(fControls['password'].touched && fControls['password'].invalid) {
-                @if(fControls['password'].errors && fControls['password'].errors['required']) {
-                  <div>Clave es Requerido</div>
-                } 
-              }
-            </div>
-          </div>
-        </div>
+    <form class="space-y-4" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div>
+        <label class="block text-sm font-medium text-black">Email</label>
+        <div class="relative">
+          <ion-icon name="mail-outline"
+            class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
+          <input type="email"
+            class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
+            placeholder="your@email.com" formControlName="email" />
 
-      <!-- <div>
-        <label class="block text-sm font-medium text-black mb-1">Contraseña</label>
+          <!-- Contenedor del mensaje de error alineado a la derecha debajo del input -->
+          <div class="absolute right-0 mt-1 text-red-600 text-sm error-msg w-max">
+            @if(fControls['email'].touched && fControls['email'].invalid) {
+            @if(fControls['email'].errors && fControls['email'].errors['required']) {
+            <div>Nombre de Usuario Requerido</div>
+            } @else if(fControls['email'].errors && fControls['email'].errors['email']) {
+            <div>Nombre de usuario Inválido</div>
+            }
+            }
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-black">Email</label>
         <div class="relative">
           <ion-icon name="document-lock-outline"
             class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
-          <input type="passwords"
+          <input type="password"
             class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-            placeholder="*****" />
+            placeholder="*******" formControlName="password" />
+
+          <!-- Contenedor del mensaje de error alineado a la derecha debajo del input -->
+          <div class="absolute right-0 mt-1 text-red-600 text-sm error-msg w-max">
+            @if(fControls['password'].touched && fControls['password'].invalid) {
+            @if(fControls['password'].errors && fControls['password'].errors['required']) {
+            <div>Clave es Requerido</div>
+            }
+            }
+          </div>
         </div>
-      </div> -->
+      </div>
+
 
       <div class="flex items-center justify-between">
 
         <a href="#" class="text-sm text-orange-600 hover:text-orange-500">Olvidaste tu Contraseña?</a>
       </div>
 
-      <button 
-
+      <button
         class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2.5 rounded-3xl transition-colors mb-0"
-        [disabled]="!form.valid"
-        type="submit">
+        [disabled]="!loginForm.valid" type="submit">
         Ingresar
       </button>
 
@@ -150,18 +138,27 @@
 
     }@else {
 
-    <form class="space-y-4">
+    <form class="space-y-4" [formGroup]="registerForm" (ngSubmit)="submit()">
       <div>
         <mat-label class="block text-sm font-medium text-black mb-1">Nombres</mat-label>
         <div class="relative">
+
           <ion-icon name="person-outline"
             class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
           <input type="text"
             class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-            placeholder="Nombres" />
+            placeholder="Nombres" formControlName="firstNames" />
+
+        
+
         </div>
-
-
+        <div class="absolute -translate-x-1/2 right-10 mt-1 text-red-600 text-sm error-msg w-max">
+          @if(fControlsRegister['firstNames'].touched && fControlsRegister['firstNames'].invalid) {
+            @if(fControlsRegister['firstNames'].errors && fControlsRegister['firstNames'].errors['required']) {
+              <div>Nombres Requeridos</div>
+            } 
+          }
+      </div>
 
       </div>
       <div>
@@ -171,8 +168,16 @@
             class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
           <input type="phone"
             class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-            placeholder="Apellidos" />
+            placeholder="Apellidos" formControlName="lastNames" />
+          
         </div>
+        <div class="absolute -translate-x-1/2 right-10 mt-1 text-red-600 text-sm error-msg w-max">
+          @if(fControlsRegister['lastNames'].touched && fControlsRegister['lastNames'].invalid) {
+            @if(fControlsRegister['lastNames'].errors && fControlsRegister['lastNames'].errors['required']) {
+              <div>Apellidos Requeridos</div>
+            } 
+          }
+      </div>
 
 
 
@@ -180,33 +185,62 @@
       <div>
         <label class="block text-sm font-medium text-black mb-1">Email</label>
         <div class="relative">
-          <ion-icon name="mail-outline"
-            class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
-          <input type="email"
+          <ion-icon name="mail-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
+          <input
+            type="email"
             class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-            placeholder="your@email.com" />
+            placeholder="your@email.com"
+            formControlName="email"
+          />
         </div>
-
-
-
+        <div class="absolute -translate-x-1/2 right-10 mt-1 text-red-600 text-sm error-msg w-max">
+          @if(fControlsRegister['email'].touched && fControlsRegister['email'].invalid) {
+            @if(fControlsRegister['email'].errors && fControlsRegister['email'].errors['required']) {
+              <div>Email Requerido</div>
+            } @else if(fControlsRegister['email'].errors && fControlsRegister['email'].errors['email']) {
+              <div>Email Inválido</div>
+            }
+          }
       </div>
+      </div>
+      
 
       <div>
         <label class="block text-sm font-medium text-black mb-1">Password</label>
         <div class="relative">
           <ion-icon name="document-lock-outline"
             class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
-          <input type="passwords"
+          <input type="password"
             class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
-            placeholder="*****" />
+            placeholder="*****" 
+            formControlName="password"/>
         </div>
+        <div class="absolute -translate-x-1/2 right-10 mt-1 text-red-600 text-sm error-msg w-max">
+          @if(fControlsRegister['password'].touched && fControlsRegister['password'].invalid) {
+            @if(fControlsRegister['password'].errors && fControlsRegister['password'].errors['required']) {
+              <div>Clave Requerido</div>
+            } @else if(fControlsRegister['password'].errors && fControlsRegister['password'].errors['minlength']) {
+              <div>Minimo 8 Caracteres</div>
+            } @else if(fControlsRegister['password'].errors && fControlsRegister['password'].errors['noUpperCase']) {
+              <div>Minimo una Mayuscula</div>
+            } @else if(fControlsRegister['password'].errors && fControlsRegister['password'].errors['noLowerCase']) {
+              <div>Minimo una minuscula</div>
+            }@else if(fControlsRegister['password'].errors && fControlsRegister['password'].errors['noSpecialChar']) {
+              <div>Minimo un caracter especial</div>
+            }@else if(fControlsRegister['password'].errors && fControlsRegister['password'].errors['noNumber']) {
+              <div>minimo un numero</div>
+            }
+          }
+      </div>
       </div>
 
+      <div class="mt-24">
 
-      <button
-        class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2.5 rounded-3xl transition-colors mb-0">
-        Registrarse
-      </button>
+        <button
+          class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2.5 rounded-3xl transition-colors mt-7 mb-0">
+          Registrarse
+        </button>
+      </div>
 
 
     </form>

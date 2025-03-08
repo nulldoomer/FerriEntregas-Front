@@ -9,6 +9,9 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class AuthService {
+  register(credentials: { email: string; password: string; firstNames: string; lastNames: string; }): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient) { }
 
