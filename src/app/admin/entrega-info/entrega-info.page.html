@@ -46,14 +46,34 @@
           </button>
         </a>
       </div>
-    </ion-content>
-    
-  
+      
     <!-- Imagen de la factura -->
     <div class="text-center">
       <img src="ruta_a_tu_factura.jpg" alt="Factura" class="w-full max-w-xs mx-auto rounded-xl shadow-md">
     </div>
+
+
+    <ion-button (click)="openFileInput()">Seleccionar Imagen</ion-button>
+
+  <!-- Aquí se muestra el texto extraído -->
+  <ion-card *ngIf="extractedText">
+    <ion-card-header>
+      <ion-card-title>Texto Extraído</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ extractedText }}</p>
+    </ion-card-content>
+  </ion-card>
+
+
+    </ion-content>
+    
+  
   </ion-content>
+  
+
+
+
   
 
   <!-------------------------------------------------- MODAL ---------------------------------------------->
@@ -61,8 +81,7 @@
     [backdropDismiss]="false" [backdropBreakpoint]="0.5">
     <ng-template>
       <ion-content class="ion-padding">
-        <ion-label class="block font-bold px-10 text-black"> Your Package is on the way</ion-label>
-        <ion-label class="block px-10 !text-gray-400">Arriving at pick up point 2min</ion-label>
+        <ion-label class="block font-bold px-10 text-black"> Informacion de la Entrega</ion-label>
         <ion-item>
           <ion-avatar slot="start">
             <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
@@ -72,10 +91,10 @@
             <p>
               <ion-icon name="star" class="pl-2 text-orange-500 "></ion-icon>
               4.9
-              <ion-icon name="call" class="absolute right-10 top-1/2 -translate-y-1/2 !text-black" 
+              <ion-icon name="call" class="absolute right-10 top-1/2 -translate-y-1/2 !text-black text-xl" 
               (click)="makeCall()"></ion-icon>
             
-              <ion-icon name="logo-whatsapp" class="absolute right-2 top-1/2 -translate-y-1/2 !text-black" 
+              <ion-icon name="logo-whatsapp" class="absolute right-2 top-1/2 -translate-y-1/2 !text-black text-xl" 
               (click)="sendWhatsAppMessage()"></ion-icon>
 
             </p>
@@ -83,21 +102,21 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            <h2>M213N343</h2>
-            <p>Track number</p>
+            <h2>Valor cancelado</h2>
+            <p>$30</p>
           </ion-label>
           <ion-label>
-            <h2>1-3 Hours</h2>
-            <p>Estimated Time</p>
+            <h2>Valor por cancelar</h2>
+            <p>$50</p>
           </ion-label>
           <ion-label>
-            <h2>5.5kg</h2>
-            <p>Package Weight</p>
+            <h2>Observaciones</h2>
+            <p>Ninguna</p>
           </ion-label>
         </ion-item>
         <div class="flex-grow"></div>
         <div class="flex justify-center mb-4">
-          <ion-button shape="round" style="--background: #FD683D;">Mark as Done</ion-button>
+          <ion-button shape="round" style="--background: #FD683D;">Entregado</ion-button>
         </div>
       </ion-content>
     </ng-template>
