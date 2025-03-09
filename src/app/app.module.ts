@@ -11,7 +11,7 @@ import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, CoreModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ],
 
   bootstrap: [AppComponent],
 })

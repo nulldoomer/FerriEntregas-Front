@@ -19,7 +19,6 @@ export class HomePage {
   constructor(
     private navController: NavController,
     private authService: AuthService,
-    private cookieService: CookieService
   ) {}
 
   loginForm = new FormGroup({
@@ -67,7 +66,6 @@ export class HomePage {
       this.authService.login(credentials).subscribe(
         (res) => {
           console.log('Login successful:', res);
-          this.cookieService.set('token', res.token);
           this.navController.navigateForward('admin/inicio');
         },
         (error) => {
@@ -87,7 +85,6 @@ export class HomePage {
       this.authService.register(credentials).subscribe(
         (res) => {
           console.log('Registration successful:', res);
-          this.cookieService.set('token', res.token);
           this.navController.navigateForward('admin/inicio');
         },
         (error) => {
@@ -97,14 +94,13 @@ export class HomePage {
     }
   }
 
-  // Método de validación personalizada para confirmar la contraseña
   confirmarClave(control: AbstractControl): { [key: string]: boolean } | null {
     if (!this.registerForm) {
-      return null; // Si el formulario aún no está definido, no realizamos ninguna validación
+      return null; 
     }
 
     if (this.registerForm.get('password')?.value !== control.value) {
-      return { passwordMismatch: true }; // Error si las contraseñas no coinciden
+      return { passwordMismatch: true };
     }
 
     return null;

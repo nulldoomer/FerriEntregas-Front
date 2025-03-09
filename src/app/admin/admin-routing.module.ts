@@ -13,7 +13,7 @@ const routes: Routes = [
     {
       path: '',
       children: [
-        { path: 'entrega-info', component: EntregaInfoPage },
+        { path: 'entrega-info/:id', component: EntregaInfoPage },
 
         { path: 'inicio', component: InicioPage },
         { path: 'notifications', component: NotificationsPage },

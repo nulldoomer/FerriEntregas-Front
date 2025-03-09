@@ -39,3 +39,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* SweetAlert2 custom styles */
+.custom-swal-popup {
+    border-radius: 10px !important;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  
+  
+  

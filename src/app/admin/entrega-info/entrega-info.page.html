@@ -16,6 +16,45 @@
       <ion-title size="large">Información Entrega</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content class="ion-padding">
+    <!-- Croquis -->
+    <div class="relative mb-6">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d996.1676125164406!2d-78.63142883049792!3d-1.2475063993511946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d391a9e4bfa7e7%3A0x7fd1d2b94d64372d!2sLetamendi%20%26%20Eusebio%20Barrera%2C%20Ambato!5e0!3m2!1ses!2sec!4v1710113044864!5m2!1ses!2sec" 
+        width="100%" 
+        height="300" 
+        style="border:0; border-radius: 10px;" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </div>
+    
+  
+    <ion-content class="ion-padding">
+      <div class="mb-6 text-center">
+        <a href="https://www.google.com/maps?q=Letamendy+y+Eusebio+Barrera,+Ambato" target="_blank">
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-3xl transition-colors flex items-center justify-center space-x-2">
+            <!-- Logo de Google Maps -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+              <path d="M12 9.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"></path>
+              <path d="M6.428 12.494l7.314 -9.252"></path>
+              <path d="M10.002 7.935l-2.937 -2.545"></path>
+              <path d="M17.693 6.593l-8.336 9.979"></path>
+              <path d="M17.591 6.376c.472 .907 .715 1.914 .709 2.935a7.263 7.263 0 0 1 -.72 3.18a19.085 19.085 0 0 1 -2.089 3c-.784 .933 -1.49 1.93 -2.11 2.98c-.314 .62 -.568 1.27 -.757 1.938c-.121 .36 -.277 .591 -.622 .591c-.315 0 -.463 -.136 -.626 -.593a10.595 10.595 0 0 0 -.779 -1.978a18.18 18.18 0 0 0 -1.423 -2.091c-.877 -1.184 -2.179 -2.535 -2.853 -4.071a7.077 7.077 0 0 1 -.621 -2.967a6.226 6.226 0 0 1 1.476 -4.055a6.25 6.25 0 0 1 4.811 -2.245a6.462 6.462 0 0 1 1.918 .284a6.255 6.255 0 0 1 3.686 3.092z"></path>
+            </svg>
+            <span>Ver en Google Maps</span>
+          </button>
+        </a>
+      </div>
+    </ion-content>
+    
+  
+    <!-- Imagen de la factura -->
+    <div class="text-center">
+      <img src="ruta_a_tu_factura.jpg" alt="Factura" class="w-full max-w-xs mx-auto rounded-xl shadow-md">
+    </div>
+  </ion-content>
+  
 
   <!-------------------------------------------------- MODAL ---------------------------------------------->
   <ion-modal #modal trigger="open-modal" [isOpen]="true" [initialBreakpoint]="0.25" [breakpoints]="[0.25, 0.5, 0.75]"
@@ -33,9 +72,12 @@
             <p>
               <ion-icon name="star" class="pl-2 text-orange-500 "></ion-icon>
               4.9
-              <ion-icon name="call" class="absolute right-10 top-1/2 -translate-y-1/2 !text-black"></ion-icon>
-              <ion-icon name="chatbox-ellipses"
-                class="absolute right-2 top-1/2 -translate-y-1/2 !text-black"></ion-icon>
+              <ion-icon name="call" class="absolute right-10 top-1/2 -translate-y-1/2 !text-black" 
+              (click)="makeCall()"></ion-icon>
+            
+              <ion-icon name="logo-whatsapp" class="absolute right-2 top-1/2 -translate-y-1/2 !text-black" 
+              (click)="sendWhatsAppMessage()"></ion-icon>
+
             </p>
           </ion-label>
         </ion-item>

@@ -16,6 +16,7 @@ import { RutasPage } from './rutas/rutas.page';
 import { InicioPage } from './inicio/inicio.page';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/http';
+import { CoreModule } from '../core.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AuthInterceptor } from '../interceptors/http';
     AdminRoutingModule,
         FormsModule,
         IonicModule,
+        CoreModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

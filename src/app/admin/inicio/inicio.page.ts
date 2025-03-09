@@ -10,6 +10,16 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   standalone: false
 })
 export class InicioPage implements OnInit, AfterViewInit {
+eliminar(id: string) {
+  this.navController.navigateForward(`admin/entrega-info/${id}`);
+}
+deletePokemon: any;
+showInfo(_t85: any) {
+throw new Error('Method not implemented.');
+}
+edit(_t85: any) {
+throw new Error('Method not implemented.');
+}
   pokemons: any[] = [];
   offset = 0;
   limit = 10;
@@ -57,7 +67,7 @@ export class InicioPage implements OnInit, AfterViewInit {
     );
   }
   goToNotificationsPage() {
-    this.navController.navigateForward('/notifications');
+    this.navController.navigateForward('admin/notifications');
   }
   goroote(route: string) {
     this.navController.navigateForward(route);

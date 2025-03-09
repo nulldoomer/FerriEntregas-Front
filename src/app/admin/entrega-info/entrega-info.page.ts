@@ -25,6 +25,16 @@ export class EntregaInfoPage implements OnInit {
   goBackInicio() {
     this.navController.back();
   }
+  makeCall() {
+    const phoneNumber = '593983224738';  // Número con el que se hará la llamada
+    window.location.href = `tel:${phoneNumber}`;
+  }
+
+  // Función para enviar un mensaje por WhatsApp
+  sendWhatsAppMessage() {
+    const phoneNumber = '593983224738';  // Número al que se enviará el mensaje
+    window.location.href = `https://wa.me/${phoneNumber}`;
+  }
   openGoogleMapsRoute() {
     const origin = 'Ambato,Ecuador';
     const destination = 'Latacunga,Ecuador';
