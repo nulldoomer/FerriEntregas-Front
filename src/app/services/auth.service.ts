@@ -10,6 +10,16 @@ import { ToastService } from './toast.service';
   providedIn: 'root'
 })
 export class AuthService {
+  isAuthenticated() {
+    const token = this.getDecryptedToken();
+    if (!token){
+      return false;
+    }else{
+      return true;
+    } 
+
+    
+  }
   register(credentials: { email: string; password: string; firstNames: string; lastNames: string; }): Observable<any> {
     throw new Error('Method not implemented.');
   }

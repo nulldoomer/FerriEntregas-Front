@@ -7,11 +7,13 @@ import { OrdenesPage } from './ordenes/ordenes.page';
 import { RutasPage } from './rutas/rutas.page';
 import { PerfilPage } from './perfil/perfil.page';
 import { OpcionesPage } from './opciones/opciones.page';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
 
     {
       path: '',
+      canActivateChild: [authGuard],
       children: [
         { path: 'entrega-info/:id', component: EntregaInfoPage },
 
