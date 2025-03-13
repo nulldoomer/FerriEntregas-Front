@@ -39,12 +39,8 @@ export class HomePage {
         hasUpperCase,
         hasLowerCase,
       ]),
-      passwordConfirmar: new FormControl('', [
-        Validators.required,
-        this.confirmarClave.bind(this), // Aseguramos el contexto aquí
-      ]),
+      passwordConfirmar: new FormControl('', [Validators.required,this.confirmarClave,]),
     },
-    this.confirmarClave.bind(this)
   );
 
   get fControls() {
@@ -74,7 +70,7 @@ export class HomePage {
       );
     }
 
-    if (this.selectedSegment === 'register' && this.registerForm.valid) {
+    if (this.selectedSegment === 'registro' && this.registerForm.valid) {
       const credentials = {
         email: this.registerForm.value.email ?? '',
         password: this.registerForm.value.password ?? '',
@@ -85,7 +81,7 @@ export class HomePage {
       this.authService.register(credentials).subscribe(
         (res) => {
           console.log('Registration successful:', res);
-          this.navController.navigateForward('admin/inicio');
+          this.navController.navigateForward('public/confirm-email');
         },
         (error) => {
           console.error('Error during registration:', error);
@@ -94,16 +90,18 @@ export class HomePage {
     }
   }
 
-  confirmarClave(control: AbstractControl): { [key: string]: boolean } | null {
-    if (!this.registerForm) {
-      return null; 
+  confirmarClave(control: FormControl): {[s: string]: boolean} {
+    const formGroup = control.parent;
+    if (formGroup) {
+      const claveControl = formGroup.get('password');
+      const claveConfirmarControl = formGroup.get('passwordConfirmar');
+      if (claveControl && claveConfirmarControl) {
+        if (claveControl.value === claveConfirmarControl.value) {
+          return {}; // La validación es exitosa
+        }
+      }
     }
-
-    if (this.registerForm.get('password')?.value !== control.value) {
-      return { passwordMismatch: true };
-    }
-
-    return null;
+    return { 'noCoincide': true }; // La validación falla
   }
 
   goToNotificationsPage() {

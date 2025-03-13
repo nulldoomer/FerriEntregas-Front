@@ -130,6 +130,7 @@
         class="w-full bg-orange-600  text-white font-medium py-2.5 rounded-3xl transition-colors mb-0" 
         [disabled]="!formEmail.valid"
         [ngClass]="{'bg-gray-400': !formEmail.valid, 'bg-orange-600': formEmail.valid}"
+        (click)="sendEmail()"
         type="submit">
         Enviar Código
         </button>

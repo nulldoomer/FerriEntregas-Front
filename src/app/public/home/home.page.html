@@ -233,13 +233,35 @@
           }
       </div>
       </div>
+      <div>
+        <label class="block text-sm font-medium text-black mb-1">Confirmar Contrasenia</label>
+        <div class="relative">
+          <ion-icon name="mail-outline" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></ion-icon>
+          <input
+            type="password"
+            class="w-full px-10 py-2 border bg-transparent rounded-xl ring-2 ring-gray-200 border-gray-200 outline-none transition-all text-black"
+            placeholder="XXXXXXX***"
+            formControlName="passwordConfirmar"
+          />
+        </div>
+        <div class="absolute -translate-x-1/2 right-10 mt-1 text-red-600 text-sm error-msg w-max">
+          @if(fControlsRegister['passwordConfirmar'].touched && fControlsRegister['passwordConfirmar'].invalid) {
+            @if(fControlsRegister['passwordConfirmar'].errors && fControlsRegister['passwordConfirmar'].errors['required']) {
+              <div>Confirmacion Requerida</div>
+            } @else if(fControlsRegister['passwordConfirmar'].errors && fControlsRegister['passwordConfirmar'].errors['noCoincide']) {
+              <div>No coincide</div>
+            }
+          }
+      </div>
+      </div>
 
       <div class="mt-24">
 
         <button
-          class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2.5 rounded-3xl transition-colors mt-7 mb-0">
-          Registrarse
-        </button>
+        class="w-full bg-orange-600  text-white font-medium py-2.5 rounded-3xl transition-colors mb-0"
+        [disabled]="!registerForm.valid" type="submit">
+        Registarse
+      </button>
       </div>
 
 

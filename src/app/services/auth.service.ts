@@ -5,11 +5,18 @@ import { environment } from 'src/environments/environment';
 import { Token } from 'src/interfaces/token.interface';
 import * as CryptoJS from 'crypto-js';
 import { ToastService } from './toast.service';
+import { Registro, RegistroResponse } from 'src/interfaces/registro.interface';
+import { EmailService } from './email.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
+  constructor(private http: HttpClient, private toastService: ToastService, private emailService: EmailService) { }
+
+
+
   isAuthenticated() {
     const token = this.getDecryptedToken();
     if (!token){
@@ -20,18 +27,31 @@ export class AuthService {
 
     
   }
-  register(credentials: { email: string; password: string; firstNames: string; lastNames: string; }): Observable<any> {
-    throw new Error('Method not implemented.');
+  register(registro: Registro): Observable<RegistroResponse> {
+    return this.http.post<RegistroResponse>(`${environment.apiUrlBase}/auth/register`, registro).pipe(
+      tap(res => {
+        if (res.token) {
+          this.toastService.showToast('Registro exitoso', 'success');
+          this.storeEncryptedToken(res.token);
+          localStorage.setItem('rol', res.role.name);
+          this.emailService.sendEmail(registro.email).subscribe();
+        }
+      }),
+      catchError(error => {
+        this.toastService.showToast('Error en el registro', 'error');
+        console.error('Registro error:', error);
+        return of({} as RegistroResponse);
+      })
+    );
   }
 
-  constructor(private http: HttpClient, private toastService: ToastService) { }
 
   login(credentials: { email: string, password: string }): Observable<Token | any> {
     return this.http.post<Token>(`${environment.apiUrlBase}/auth/login`, credentials).pipe(
       tap(res => {
-        if (res.token) {
+        if (res.accessToken) {
           this.toastService.showToast( 'Bienvenido', 'success');
-          this.storeEncryptedToken(res.token);
+          this.storeEncryptedToken(res.accessToken);
         }
       }),
       catchError(error => {

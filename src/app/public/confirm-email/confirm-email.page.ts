@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 import { interval, Subscription, take } from 'rxjs';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-confirm-email',
@@ -9,8 +11,11 @@ import { interval, Subscription, take } from 'rxjs';
   standalone: false,
 })
 export class ConfirmEmailPage implements OnInit {
+  constructor(private emailService: EmailService, private navController: NavController) { }
+
+
 submitCode() {
-throw new Error('Method not implemented.');
+this.veryEmail();
 }
 submit() {
     if (this.formEmail.valid) {
@@ -20,8 +25,35 @@ submit() {
     }
   
 }
+sendEmail() {
+  if (this.email) {
+    console.log('Enviando correo electrónico a:', this.email);
+    this.emailService.sendEmail(this.email).subscribe(
+      (response) => {
+        console.log('Correo electrónico enviado:', response);
+      },
+      (error) => {
+        console.error('Error al enviar el correo electrónico:', error);
+      }
+    );
+  }
+}
+veryEmail() {
+  if (this.formCode.valid) {
+    this.token = this.formCode.value.code ?? '';
+    console.log('Token:', this.token);
+    this.emailService.veryEmail(this.token).subscribe(
+      (response) => {
+        console.log('Correo electrónico verificado:', response);
+        this.navController.navigateForward('public/home');
+      },
+      (error) => {
+        console.error('Error al verificar el correo electrónico:', error);
+      }
+    );
+  }
+}
 
-  constructor() { }
   token: string = '';
   email: string = '';
   isDisabled: boolean = false;  
@@ -41,7 +73,7 @@ submit() {
     
     this.isDisabled = true;
     this.countdown = 60; 
-
+    this.sendEmail();
     this.countdownSubscription = interval(1000)
       .pipe(take(60)) 
       .subscribe({

@@ -9,7 +9,7 @@ export const authGuard: CanActivateChildFn = (childRoute, state) => {
   if (authService.isAuthenticated()) {
     return true;
   } else {
-    router.navigate(['/public/login']);
+    router.navigate(['/public/home']);
     return false;
 
   }
