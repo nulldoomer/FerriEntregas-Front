@@ -17,6 +17,12 @@ import { InicioPage } from './inicio/inicio.page';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/http';
 import { CoreModule } from '../core.module';
+import { UsuariosFormPage } from './usuarios/usuarios-form/usuarios-form.page';
+import { UsuariosPage } from './usuarios/usuarios.page';
+import { PatmentTypePage } from './patment-type/patment-type.page';
+import { PatmentTypeFormPage } from './patment-type/patment-type-form/patment-type-form.page';
+import { DelieveryStatusFormPage } from './delievery-status/delievery-status-form/delievery-status-form.page';
+import { DelieveryStatusPage } from './delievery-status/delievery-status.page';
 
 
 @NgModule({
@@ -30,14 +36,21 @@ import { CoreModule } from '../core.module';
     OpcionesPage,
     OrdenesPage,
     PerfilPage,
-    RutasPage
+    RutasPage,
+    UsuariosFormPage,
+    UsuariosPage,
+    PatmentTypePage,
+    PatmentTypeFormPage,
+    DelieveryStatusFormPage,
+    DelieveryStatusPage
+    
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
         FormsModule,
         IonicModule,
-        CoreModule
+        CoreModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
