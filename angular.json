@@ -121,7 +121,7 @@
               "src/theme/variables.scss"
             ],
             "scripts": [
-               "https://maps.googleapis.com/maps/api/js?key=AIzaSyAEyU3FN6LpUG_KBIzTwT71vtpLmwGcpL0"
+               "https://maps.googleapis.com/maps/api/js?key=AIzaSyAEyU3FN6LpUG_KBIzTwT71vtpLmwGcpL0&libraries=places"
             ]
           },
           "configurations": {

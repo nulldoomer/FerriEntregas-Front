@@ -1,5 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MapMarker } from '@angular/google-maps';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-rutas',
@@ -9,9 +10,11 @@ import { MapMarker } from '@angular/google-maps';
 })
 export class RutasPage implements AfterViewInit {
   zoom = 10;
-  center: google.maps.LatLngLiteral = { lat: -1.24908, lng: -78.6167 };
+  center: google.maps.LatLngLiteral = { lat: -1.24908, lng: -78.6167 }; // Ubicación inicial del mapa
   markers: any[] = [];
   selectedMarker: any = null;
+  nearestLocation: any = null; // Para almacenar la ubicación más cercana
+
 
   // Lista de ubicaciones con diferentes íconos
   locations = [
@@ -20,7 +23,14 @@ export class RutasPage implements AfterViewInit {
     { lat: -1.3989, lng: -78.4239, name: "Baños", description: "Destino turístico con aguas termales.", icon: 'assets/ferri.svg' },
     { lat: -1.3316, lng: -78.5417, name: "Pelileo", description: "Famoso por su industria textil.", icon: 'assets/ferri.svg' }
   ];
-
+  openInfo(marker: any) {
+    this.selectedMarker = marker;
+  }
+  openInGoogleMaps(lat: number, lng: number) {
+    const url = `https://www.google.com/maps?q=${lat},${lng}`;
+    window.open(url, '_blank'); // Abre Google Maps en una nueva pestaña
+  }
+  
   constructor() {}
 
   ngAfterViewInit(): void {
@@ -34,12 +44,69 @@ export class RutasPage implements AfterViewInit {
       description: location.description,
       icon: {
         url: location.icon,
-        scaledSize: new google.maps.Size(40, 40) // Tamaño del icono
+        scaledSize: new google.maps.Size(40, 40)
       }
     }));
   }
 
-  openInfo(marker: any) {
-    this.selectedMarker = marker;
+  async getLocation() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      const userLocation = {
+        lat: coordinates.coords.latitude,
+        lng: coordinates.coords.longitude
+      };
+
+      // Actualizar el centro del mapa
+      this.center = userLocation;
+
+      // Agregar marcador del camión
+      this.markers.push({
+        position: userLocation,
+        title: "Mi Ubicación",
+        description: "Este es el lugar donde me encuentro",
+        icon: {
+          url: 'assets/camion.svg',
+          scaledSize: new google.maps.Size(40, 40)
+        }
+      });
+
+      // Encontrar la ubicación más cercana
+      this.findNearestLocation(userLocation);
+
+    } catch (error) {
+      console.error('Error obteniendo la ubicación', error);
+    }
+  }
+
+  findNearestLocation(userLocation: { lat: number, lng: number }) {
+    let minDistance = Infinity;
+    let closestLocation = null;
+
+    for (const location of this.locations) {
+      const distance = this.haversineDistance(userLocation.lat, userLocation.lng, location.lat, location.lng);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestLocation = location;
+      }
+    }
+
+    this.nearestLocation = closestLocation;
+    console.log("Ubicación más cercana:", closestLocation);
+  }
+
+  // Fórmula de Haversine para calcular la distancia entre dos puntos geográficos
+  haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
+    const R = 6371; // Radio de la Tierra en km
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLng = (lng2 - lng1) * (Math.PI / 180);
+    
+    const a = 
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distancia en km
   }
 }
