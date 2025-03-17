@@ -23,6 +23,7 @@ import { PatmentTypePage } from './patment-type/patment-type.page';
 import { PatmentTypeFormPage } from './patment-type/patment-type-form/patment-type-form.page';
 import { DelieveryStatusFormPage } from './delievery-status/delievery-status-form/delievery-status-form.page';
 import { DelieveryStatusPage } from './delievery-status/delievery-status.page';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { DelieveryStatusPage } from './delievery-status/delievery-status.page';
         FormsModule,
         IonicModule,
         CoreModule,
+        GoogleMapsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

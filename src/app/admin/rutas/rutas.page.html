@@ -1,12 +1,28 @@
-<ion-header [translucent]="true" class="shadow-none"> 
-  <ion-toolbar class="h-10"> 
-    <ion-title class="text-lg font-semibold">Rutas</ion-title> 
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rutas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- Botón para abrir Google Maps con la ruta -->
-  <ion-button (click)="openGoogleMapsRoute()">Abrir Ruta en Google Maps</ion-button>
+  <google-map width="100%" height="400px" [zoom]="zoom" [center]="center">
+    <map-marker 
+      *ngFor="let marker of markers" 
+      [position]="marker.position" 
+      [title]="marker.title"
+      [icon]="marker.icon"
+      (mapClick)="openInfo(marker)">
+    </map-marker>
+  </google-map>
+  
+  <!-- Card de información -->
+  <ion-card *ngIf="selectedMarker" class="m-4 p-2 shadow-lg">
+    <ion-card-header>
+      <ion-card-title>{{ selectedMarker.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ selectedMarker.description }}</p>
+      <p><strong>Ubicación:</strong> {{ selectedMarker.position.lat }}, {{ selectedMarker.position.lng }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
-
-<app-footer></app-footer>

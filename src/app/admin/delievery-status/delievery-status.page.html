@@ -5,9 +5,71 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">delieveryStatus</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <button (click)="nuevo()" type="button" class="relative w-full flex justify-center items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-black rounded-md hover:bg-gray-900  focus:outline-none   transition duration-300 transform active:scale-95 ease-in-out">
+      <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+         <g>
+            <rect fill="none" height="24" width="24"></rect>
+         </g>
+         <g>
+            <g>
+               <path d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z"></path>
+            </g>
+         </g>
+      </svg>
+      <span class="pl-2 mx-1">Crear nuevo Tipo de pago</span>
+   </button>
+    @for (status of delieverisStatus; track $index) {
+      <div class="flex items-center justify-between rounded-xl bg-white p-4 shadow-lg">
+        <div class="flex items-start">
+          @if ($index % 2 === 0) {
+            <div class="flex h-12 w-12 items-center justify-center rounded-full border border-blue-100 bg-blue-50">
+              <svg class="h-6 w-6 text-blue-400" 
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M16.54 7c-.805 -2.365 -2.536 -4 -4.54 -4c-2.774 0 -5.023 2.632 -5.023 6.496c0 1.956 1.582 4.727 2.512 6" />
+                <path d="M4.711 11.979c-1.656 1.877 -2.214 4.185 -1.211 5.911c1.387 2.39 5.138 2.831 8.501 .9c1.703 -.979 2.875 -3.362 3.516 -4.798" />
+                <path d="M15.014 19.99c2.511 0 4.523 -.438 5.487 -2.1c1.387 -2.39 -.215 -5.893 -3.579 -7.824c-1.702 -.979 -4.357 -1.235 -5.927 -1.07" />
+              </svg>
+            </div>
+          } @else {
+            <div class="flex h-12 w-12 items-center justify-center rounded-full border border-orange-100 bg-orange-50">
+              <svg class="h-6 w-6 text-orange-400" 
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M20 11a8.1 8.1 0 0 0 -6.986 -6.918a8.095 8.095 0 0 0 -8.019 3.918" />
+                <path d="M4 13a8.1 8.1 0 0 0 15 3" />
+                <path d="M19 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              </svg>
+            </div>
+          }
+      
+          <div class="ml-4 mt-3">
+            <h2 class="font-semibold">{{ status.name }}</h2>
+          </div>
+        </div>
+      
+        <button (click)="editar(status.id ?? '')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">
+          Editar
+        </button>
+      </div>
+      
+    }
+  
+   
+  </div>
 </ion-content>

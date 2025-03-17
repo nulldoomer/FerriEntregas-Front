@@ -17,6 +17,9 @@ export class PatmentTypePage implements OnInit {
     this.paymentList();
 
   }
+  ionViewWillEnter() {
+    this.paymentList(); 
+  }
   paymentList(){
     this.paymentService.getPayments().subscribe((res: any) => {
       console.log(res);
