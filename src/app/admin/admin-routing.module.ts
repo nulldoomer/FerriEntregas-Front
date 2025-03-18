@@ -14,6 +14,8 @@ import { PatmentTypePage } from './patment-type/patment-type.page';
 import { PatmentTypeFormPage } from './patment-type/patment-type-form/patment-type-form.page';
 import { DelieveryStatusPage } from './delievery-status/delievery-status.page';
 import { DelieveryStatusFormPage } from './delievery-status/delievery-status-form/delievery-status-form.page';
+import { CustomerPage } from './customer/customer.page';
+import { CustomerFormPage } from './customer/customer-form/customer-form.page';
 
 const routes: Routes = [
 
@@ -37,18 +39,18 @@ const routes: Routes = [
         {path: 'delievery-status', component: DelieveryStatusPage},
         {path: 'delievery-status-form', component: DelieveryStatusFormPage},
         {path: 'delievery-status-form/:id', component: DelieveryStatusFormPage},
+        {path: 'customer', component: CustomerPage},
+        {path: 'customer-form/:id', component: CustomerFormPage},
+        {path: 'customer-form', component: CustomerFormPage},
 
         { path: '', redirectTo: 'admin/inicio', pathMatch: 'full' } // Redirección por defecto
       ]
-    },
-
+    },  {
+    path: 'date-time-modal',
+    loadChildren: () => import('./customer/date-time-modal/date-time-modal.module').then( m => m.DateTimeModalPageModule)
+  },
 
  
-
-
-
-
-
 ];
 
 

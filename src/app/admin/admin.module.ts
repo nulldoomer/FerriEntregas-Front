@@ -24,6 +24,11 @@ import { PatmentTypeFormPage } from './patment-type/patment-type-form/patment-ty
 import { DelieveryStatusFormPage } from './delievery-status/delievery-status-form/delievery-status-form.page';
 import { DelieveryStatusPage } from './delievery-status/delievery-status.page';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { CustomerPage } from './customer/customer.page';
+import { CustomerFormPage } from './customer/customer-form/customer-form.page';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
 
 
 @NgModule({
@@ -43,7 +48,10 @@ import { GoogleMapsModule } from '@angular/google-maps';
     PatmentTypePage,
     PatmentTypeFormPage,
     DelieveryStatusFormPage,
-    DelieveryStatusPage
+    DelieveryStatusPage,
+    CustomerPage,
+    CustomerFormPage,
+    
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -54,6 +62,10 @@ import { GoogleMapsModule } from '@angular/google-maps';
         IonicModule,
         CoreModule,
         GoogleMapsModule,
+        MatPaginatorModule,
+        MatTableModule,
+    DatepickerPageModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

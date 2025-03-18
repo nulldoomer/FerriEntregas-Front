@@ -1,0 +1,22 @@
+.mat-table, .mat-header-row, .mat-row, .mat-cell, .mat-header-cell {
+    background-color: white !important;
+    color: #1f2937 !important; /* Tailwind gray-800 */
+  }
+  
+  .mat-paginator {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .mat-paginator-container {
+    background-color: white !important;
+  }
+  
+  .mat-paginator-page-size {
+    color: black !important;
+  }
+  
+  .mat-paginator-range-label {
+    color: black !important;
+  }
+  

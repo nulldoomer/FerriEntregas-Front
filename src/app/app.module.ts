@@ -9,11 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UtilsModule } from './utils/utils.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, 
-    BrowserAnimationsModule
+    BrowserAnimationsModule, UtilsModule, 
 
 
   ],

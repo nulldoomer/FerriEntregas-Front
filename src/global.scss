@@ -46,6 +46,32 @@
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2) !important;
   }
   
+/* Asegurar que la tabla sea blanca */
+.mat-table, 
+.mat-header-row, 
+.mat-row, 
+.mat-cell, 
+.mat-header-cell, 
+.mat-footer-row, 
+.mat-footer-cell {
+  background-color: white !important;
+  color: #1f2937 !important; /* Tailwind gray-800 */
+  border-color: #e5e7eb !important; /* Tailwind gray-200 */
+}
+
+/* Asegurar que el paginador sea blanco */
+.mat-paginator, .mat-paginator-container {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Asegurar que los botones del paginador sean visibles */
+.mat-paginator-navigation-previous, 
+.mat-paginator-navigation-next, 
+.mat-paginator-page-size {
+  color: black !important;
+}
+
   
   
   

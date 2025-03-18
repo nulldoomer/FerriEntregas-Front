@@ -1,0 +1,26 @@
+ion-header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  ion-content {
+    --background: transparent;
+  }
+  
+  .modal-content {
+    width: 90%;
+    max-width: 400px; /* Limitar el tamaño del modal */
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  ion-datetime {
+    width: 100%;
+    background-color: #f7f7f7;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+  }
+  
