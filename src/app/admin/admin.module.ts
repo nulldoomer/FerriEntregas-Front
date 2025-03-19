@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { EntregaInfoPage } from './entrega-info/entrega-info.page';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ErrorPagePage } from './error-page/error-page.page';
 import { FooterPage } from './footer/footer.page';
@@ -64,7 +64,10 @@ import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
         GoogleMapsModule,
         MatPaginatorModule,
         MatTableModule,
-    DatepickerPageModule
+    DatepickerPageModule,
+    FormsModule,
+    ReactiveFormsModule,
+
 
   ],
   providers: [

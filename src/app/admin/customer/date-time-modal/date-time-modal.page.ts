@@ -17,7 +17,6 @@ export class DateTimeModalPage {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() ); // Restamos un día
     
-    // Convertimos la fecha a formato 'YYYY-MM-DD' respetando la zona horaria local
     const year = yesterday.getFullYear();
     const month = String(yesterday.getMonth() + 1).padStart(2, '0'); // Meses van de 0-11
     const day = String(yesterday.getDate()).padStart(2, '0');
