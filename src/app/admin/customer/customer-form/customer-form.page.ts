@@ -15,19 +15,17 @@ export class CustomerFormPage implements OnInit {
 
   ngOnInit() {}
 
-  // Función para abrir el modal con el selector de fecha
   async openDateTimeModal() {
     const modal = await this.modalController.create({
       component: DateTimeModalPage,
       componentProps: {
-        currentDate: this.selectedDate, // Le pasamos la fecha actual al modal
+        currentDate: this.selectedDate, 
       },
     });
 
-    // Esperamos a que el modal se cierre y luego actualizamos el valor de la fecha
     modal.onDidDismiss().then((result) => {
       if (result.data) {
-        this.selectedDate = result.data.selectedDate; // Obtenemos la fecha seleccionada desde el modal
+        this.selectedDate = result.data.selectedDate; 
       }
     });
 

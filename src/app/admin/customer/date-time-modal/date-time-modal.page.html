@@ -1,8 +1,12 @@
-
-  <div class="modal-content">
-    <ion-datetime [(ngModel)]="selectedDate" displayFormat="MM/DD/YYYY" class="w-full bg-gray-200 border-2 border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out"></ion-datetime>
-    
-    <div class="flex justify-center mt-4">
-      <ion-button (click)="closeModal()" expand="full" class="bg-black text-white">Confirmar</ion-button>
-    </div>
+<div class="modal-content">
+  <ion-datetime 
+    [(ngModel)]="selectedDate" 
+    displayFormat="MM/DD/YYYY"
+    presentation="date"
+    class="w-full bg-gray-200 border-2 border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out">
+  </ion-datetime>
+  
+  <div class="flex justify-center mt-4">
+    <ion-button (click)="closeModal()" expand="full" class="bg-black text-white">Confirmar</ion-button>
   </div>
+</div>

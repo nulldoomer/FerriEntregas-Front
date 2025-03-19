@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ConfirmEmailPage } from './confirm-email/confirm-email.page';
 import { DatepickerPage } from './datepicker/datepicker.page';
-import { DatepickerPageModule } from './datepicker/datepicker.module';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { DatepickerPageModule } from './datepicker/datepicker.module';
     PublicRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    DatepickerPageModule
   ],
   providers: [
     AuthService

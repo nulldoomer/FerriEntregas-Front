@@ -8,14 +8,24 @@ import { ModalController } from '@ionic/angular';
   standalone: false
 })
 export class DateTimeModalPage {
-  @Input() currentDate: string | undefined; // Fecha pasada al modal
-  selectedDate: string = ''; // Usamos un valor vacío inicialmente
+  @Input() currentDate: string | undefined;
+  selectedDate: string = ''; 
 
-  constructor(private modalController: ModalController) {
-    this.selectedDate = this.currentDate || ''; // Inicializamos selectedDate en el constructor
+  constructor(private modalController: ModalController) {}
+
+  ngOnInit() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() ); // Restamos un día
+    
+    // Convertimos la fecha a formato 'YYYY-MM-DD' respetando la zona horaria local
+    const year = yesterday.getFullYear();
+    const month = String(yesterday.getMonth() + 1).padStart(2, '0'); // Meses van de 0-11
+    const day = String(yesterday.getDate()).padStart(2, '0');
+  
+    this.selectedDate = this.currentDate || `${year}-${month}-${day}`;
   }
+  
 
-  // Función para cerrar el modal y devolver la fecha seleccionada
   closeModal() {
     this.modalController.dismiss({
       selectedDate: this.selectedDate,
