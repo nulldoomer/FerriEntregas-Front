@@ -29,6 +29,7 @@ import { CustomerFormPage } from './customer/customer-form/customer-form.page';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
+import { DashboardPage } from './dashboard/dashboard.page';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
     DelieveryStatusPage,
     CustomerPage,
     CustomerFormPage,
-    
+    DashboardPage,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
