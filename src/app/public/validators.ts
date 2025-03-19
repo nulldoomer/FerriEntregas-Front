@@ -1,12 +1,10 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function hasSpecialCharacter(control: AbstractControl): ValidationErrors | null {
-  const regExp = /[@$!%*?&.,#-/]/; // Expresión regular para caracteres especiales
-
-  // Verifica si el valor cumple con la expresión regular
+  const regExp = /[@$!%*?&.,#-/]/; // 
   const hasSpecialChar = regExp.test(control.value);
 
-  // Devuelve un error si no tiene un carácter especial
+
   return hasSpecialChar ? null : { 'noSpecialChar': true };
 }
 // Validador para al menos un número
