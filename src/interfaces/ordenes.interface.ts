@@ -95,7 +95,7 @@ export interface EstimateHour {
     comments: string;
   }
   
-  export interface ApiResponse {
+  export interface InvoiceApiResponse {
     result: Invoice;
     errors: string[];
     code: number;
