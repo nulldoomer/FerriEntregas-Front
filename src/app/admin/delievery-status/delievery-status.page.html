@@ -1,9 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>delieveryStatus</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-menu></app-menu>
 
+<div class="ion-page" id="main-content"> 
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>  <!-- Botón para abrir el menú -->
+      </ion-buttons>
+      <ion-title>Dashboard</ion-title>
+    </ion-toolbar>
+  </ion-header>
 <ion-content [fullscreen]="true">
   <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     <button (click)="nuevo()" type="button" class="relative w-full flex justify-center items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-black rounded-md hover:bg-gray-900  focus:outline-none   transition duration-300 transform active:scale-95 ease-in-out">

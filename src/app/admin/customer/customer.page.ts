@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { NavController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/interfaces/customer.interface';
@@ -19,7 +19,7 @@ filterUsers() {
 throw new Error('Method not implemented.');
 }
 
-  constructor(    private navController: NavController, private customerService: CustomerService,    ) { }
+  constructor(    private navController: NavController, private customerService: CustomerService, private menuCtrl: MenuController   ) { }
 
   customers: Customer[] = [];
   displayedColumns: string[] = ['identificacion', 'nombres', 'apellidos',  'acciones'];
@@ -63,6 +63,7 @@ throw new Error('Method not implemented.');
   paginatedUsers: any[] = [];
   totalPages: number | undefined;
   ngOnInit() {
+    this.menuCtrl.enable(true, 'main-menu'); // Activa el menú al cargar la página
     this.loadcustomers();
     if (this.paginator) {
       this.subscriptions.add(

@@ -30,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
 import { DashboardPage } from './dashboard/dashboard.page';
+import { MenuPage } from './menu/menu.page';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { DashboardPage } from './dashboard/dashboard.page';
     CustomerPage,
     CustomerFormPage,
     DashboardPage,
+    MenuPage
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -65,7 +67,6 @@ import { DashboardPage } from './dashboard/dashboard.page';
         GoogleMapsModule,
         MatPaginatorModule,
         MatTableModule,
-    DatepickerPageModule,
     FormsModule,
     ReactiveFormsModule,
 
