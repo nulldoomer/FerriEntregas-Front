@@ -51,7 +51,11 @@ const routes: Routes = [
   {
     path: 'date-time-modal',
     loadChildren: () => import('./customer/date-time-modal/date-time-modal.module').then( m => m.DateTimeModalPageModule)
+  },  {
+    path: 'orddenes-form',
+    loadChildren: () => import('./ordenes/orddenes-form/orddenes-form.module').then( m => m.OrddenesFormPageModule)
   },
+
 
 
 

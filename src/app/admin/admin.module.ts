@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { MenuPage } from './menu/menu.page';
+import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { MenuPage } from './menu/menu.page';
     CustomerPage,
     CustomerFormPage,
     DashboardPage,
-    MenuPage
+    MenuPage,
+    OrddenesFormPage,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
