@@ -41,7 +41,7 @@
     "buffer": "^6.0.3",
     "calculadora-medidas": "file:",
     "crypto-js": "^4.2.0",
-    "firebase": "^11.4.0",
+    "firebase": "^11.5.0",
     "ionicons": "^7.0.0",
     "leaflet": "^1.9.4",
     "ngx-cookie-service": "^19.1.2",
