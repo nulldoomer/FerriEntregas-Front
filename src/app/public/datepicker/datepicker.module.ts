@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-import { DatepickerPage } from './datepicker.page';
 
 
 
@@ -13,6 +12,6 @@ import { DatepickerPage } from './datepicker.page';
     FormsModule,
     IonicModule,
   ],
-  declarations: [DatepickerPage]
+  // declarations: [DatepickerPage]
 })
 export class DatepickerPageModule {}

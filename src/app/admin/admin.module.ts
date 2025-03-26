@@ -28,7 +28,6 @@ import { CustomerPage } from './customer/customer.page';
 import { CustomerFormPage } from './customer/customer-form/customer-form.page';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { DatepickerPageModule } from '../public/datepicker/datepicker.module';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { MenuPage } from './menu/menu.page';
 import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
