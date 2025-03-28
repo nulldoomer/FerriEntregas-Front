@@ -1,5 +1,5 @@
 export const environment = {
-  apiUrlBase: `http://localhost:8080/api/v1`,
+  apiUrlBase: `http://192.168.1.52:8080/api/v1`,
  secretKey: 'ferriflete',
   production: false,
   firebaseConfig: {

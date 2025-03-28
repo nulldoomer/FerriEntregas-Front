@@ -30,7 +30,7 @@ export class NotificationsPushService {
   private addListener() {
     PushNotifications.addListener('registration',
       (token: Token) => {
-        alert('Push registration success, token: ' + token.value);
+        alert('token registrado, token: ' + token.value);
       }
     );
 
@@ -44,14 +44,15 @@ export class NotificationsPushService {
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived',
       (notification: PushNotificationSchema) => {
-        alert('Push received: ' + JSON.stringify(notification));
+        this.interactionService.presentAlert('Notificacion', `${JSON.stringify(notification)}`);
+        alert('Pusdwdswh received: ' + JSON.stringify(notification));
       }
     );
 
     // Method called when tapping on a notification
     PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
+        alert('Puwdwdwdwsh action performed: ' + JSON.stringify(notification));
       }
     );
   }

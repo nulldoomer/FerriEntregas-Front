@@ -1,9 +1,12 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'calculadora-medidas',
-  webDir: 'www'
+  appId: 'com.byteburst.ferrientregas',
+  appName: 'ferrientregas',
+  webDir: 'www',
+  server: {
+    cleartext: true 
+  }
 };
 
 export default config;

@@ -11,8 +11,21 @@ firebase.initializeApp({
   measurementId: "G-NB5LP2YN25"
 });
 
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Obtiene una instancia de Firebase Messaging
 const messaging = firebase.messaging();
 
+// Maneja los mensajes en segundo plano
 messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Recibiste un mensaje en segundo plano ', payload);
+  console.log('[firebase-messaging-sw.js] Recibido mensaje en segundo plano:', payload);
+  // Personaliza la notificación aquí
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: '/firebase-logo.png' // Reemplaza con el ícono de tu aplicación
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
 });

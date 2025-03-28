@@ -1,4 +1,4 @@
-/*
+/* 
  * App Global CSS
  * ----------------------------------------------------------------------------
  * Put style rules here that you want to apply globally. These styles are for
@@ -8,6 +8,11 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
+
+/* Agregar las reglas @use antes de cualquier otra regla */
+@use "tailwindcss/base";
+@use "tailwindcss/components";
+@use "tailwindcss/utilities";
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
@@ -36,16 +41,12 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import "@ionic/angular/css/palettes/dark.system.css";
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
 /* SweetAlert2 custom styles */
 .custom-swal-popup {
     border-radius: 10px !important;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2) !important;
-  }
-  
+}
+
 /* Asegurar que la tabla sea blanca */
 .mat-table, 
 .mat-header-row, 
@@ -71,7 +72,3 @@
 .mat-paginator-page-size {
   color: black !important;
 }
-
-  
-  
-  
