@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class FooterPage implements OnInit {
   currentTab: string = '';
+  rol: string = localStorage.getItem('role') || '';
 
   constructor(private router: Router) {}
 

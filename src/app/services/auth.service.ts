@@ -49,9 +49,13 @@ export class AuthService {
   login(credentials: { email: string, password: string }): Observable<Token | any> {
     return this.http.post<Token>(`${environment.apiUrlBase}/auth/login`, credentials).pipe(
       tap(res => {
+        console.log(res);
+        console.log('role', res.result.roles[0].name)
         if (res.result.accessToken) {
           this.toastService.showToast( 'Bienvenido', 'success');
           this.storeEncryptedToken(res.result.accessToken);
+         localStorage.setItem('role', res.result.roles[0].name);
+
         }
       }),
       catchError(error => {

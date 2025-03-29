@@ -8,20 +8,25 @@
           <ion-icon name="home-outline"></ion-icon>
           Inicio
         </ion-tab-button>
-
-        <ion-tab-button 
-          (click)="navigateTo('/admin/ordenes')" 
-          [ngClass]="{'text-orange-500 font-bold': isActive('/admin/ordenes')}">
-          <ion-icon name="list-circle-outline"></ion-icon>
-          Ordenes
-        </ion-tab-button>
-
-        <ion-tab-button 
+        @if (rol == 'DRIVER') {
+          <ion-tab-button 
           (click)="navigateTo('/admin/rutas')" 
           [ngClass]="{'text-orange-500 font-bold': isActive('/admin/rutas')}">
           <ion-icon name="navigate-circle-outline"></ion-icon>
           Ruta
         </ion-tab-button>
+        }@else if(rol == 'EMPLOYEE'){
+          <ion-tab-button 
+          (click)="navigateTo('/admin/ordenes')" 
+          [ngClass]="{'text-orange-500 font-bold': isActive('/admin/ordenes')}">
+          <ion-icon name="list-circle-outline"></ion-icon>
+          Ordenes
+        </ion-tab-button>
+        }
+
+        
+
+       
 
         <ion-tab-button 
           (click)="navigateTo('/admin/perfil')" 
