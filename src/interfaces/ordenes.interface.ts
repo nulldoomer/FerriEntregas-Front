@@ -1,114 +1,114 @@
 import { User } from "./user.interface";
 
-export interface EstimateHour {
-    hour: number;
-    minute: number;
-    second: number;
-    nano: number;
-  }
-  
-  export interface DeliveryStatusName {
-    id: string;
-    deleted: boolean;
-    name: string;
-  }
-  
-  export interface PaymentType {
-    id: string;
-    deleted: boolean;
-    name: string;
-  }
-  
-  export interface Evidence {
-    id: string;
-    deleted: boolean;
-    url: string;
-  }
-  
-  export interface Role {
-    id: string;
-    deleted: boolean;
-    name: string;
-  }
-  
-  export interface Authority {
-    authority: string;
-  }
-  
-  // export interface User {
-  //   id: string;
-  //   deleted: boolean;
-  //   firstNames: string;
-  //   lastNames: string;
-  //   email: string;
-  //   password: string;
-  //   profileImage: string;
-  //   emailConfirmed: boolean;
-  //   token: string;
-  //   roles: Role[];
-  //   username: string;
-  //   authorities: Authority[];
-  //   enabled: boolean;
-  //   accountNonLocked: boolean;
-  //   accountNonExpired: boolean;
-  //   credentialsNonExpired: boolean;
-  // }
-  
-  export interface Customer {
-    id: string;
-    deleted: boolean;
-    firstNames: string;
-    lastNames: string;
-    email: string;
-    password: string;
-    profileImage: string;
-    emailConfirmed: boolean;
-    token: string;
-    roles: Role[];
-    identification: string;
-    address: string;
-    addressMaps: string;
-    phone: string;
-    birthDate: string;
-    username: string;
-    authorities: Authority[];
-    enabled: boolean;
-    accountNonLocked: boolean;
-    accountNonExpired: boolean;
-    credentialsNonExpired: boolean;
-  }
-  
-  export interface Invoice {
-    id: string;
-    numeration: string;
-    invoiceNumber: string;
-    deliveryDate: string;
-    estimateHourInit: EstimateHour;
-    estimateHourEnd: EstimateHour;
-    deliveryStatusName: DeliveryStatusName;
-    paymentType: PaymentType;
-    credit: number;
-    total: number;
-    evidence: Evidence[];
-    user: User;
-    customer: Customer;
-    deliveryData: string;
-    observations: string;
-    comments: string;
-  }
-  
-  export interface InvoiceApiResponse {
-    result: Invoice;
-    errors: string[];
-    code: number;
-    success: boolean;
-  }
-  
+export interface OrdenesRequest {
+  numeration: string;
+  OrdenesNumber: string;
+  deliveryDate: string;
+  estimateHourInit: string;
+  estimateHourEnd: string;
+  deliveryStatusName: string;
+  paymentType: string;
+  credit: number;
+  total: number;
+  evidence: any[];
+  user: string;
+  customer: string;
+  deliveryData: string;
+  observations: string;
+  comments: string;
+}
+
+export interface OrdenesResponse {
+  result: OrdenesResult;
+  errors: any;
+  code: number;
+  success: boolean;
+}
+
+export interface OrdenesResult {
+  id: string;
+  numeration: string;
+  OrdenesNumber: string;
+  deliveryDate: string;
+  estimateHourInit: string;
+  estimateHourEnd: string;
+  deliveryStatusName: StatusInfo;
+  paymentType: StatusInfo;
+  credit: number;
+  total: number;
+  evidence: any[];
+  user: User;
+  customer: CustomerInfo;
+  deliveryData: string;
+  observations: string;
+  comments: string;
+}
+
+export interface StatusInfo {
+  id: string;
+  deleted: boolean;
+  name: string;
+}
+
+
+
+export interface CustomerInfo extends User {
+  identification: string;
+  address: string;
+  addressMaps: string;
+  phone: string;
+  birthDate: string;
+}
+
+export interface Role {
+  id: string;
+  deleted: boolean;
+  name: string;
+}
+
+export interface Authority {
+  authority: string;
+}
+
+export interface OrdenesListResponse {
+  result: {
+    content: OrdenesResult[];
+    pageable: Pageable;
+    last: boolean;
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    number: number;
+    sort: Sort;
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
+  };
+  errors: any;
+  code: number;
+  success: boolean;
+}
+
+export interface Pageable {
+  pageNumber: number;
+  pageSize: number;
+  sort: Sort;
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+}
+
+export interface Sort {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
+
 
 // asi se manda 
   // {
   //   "numeration": "INV-20250329-001",
-  //   "invoiceNumber": "FD-1001",
+  //   "OrdenesNumber": "FD-1001",
   //   "DeliveryDate": "2025-03-29",
   //   "estimateHourInit": "14:30:00",
   //   "estimateHourEnd": "15:15:00",
@@ -136,7 +136,7 @@ export interface EstimateHour {
   //   "result": {
   //     "id": "0fa42934-00c6-42f3-a05e-98caf76dcbb4",
   //     "numeration": "INV-20250329-001",
-  //     "invoiceNumber": "FD-1001",
+  //     "OrdenesNumber": "FD-1001",
   //     "deliveryDate": "2025-03-29",
   //     "estimateHourInit": "00:58:19.8567619",
   //     "estimateHourEnd": "16:15:00",
