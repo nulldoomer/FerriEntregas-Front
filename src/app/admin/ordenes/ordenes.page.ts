@@ -43,10 +43,10 @@ export class OrdenesPage implements OnInit {
       this.loadOrdenes(this.pageIndex + 1, this.filterValue);
     }
     info(id:string){
-      this.navController.navigateForward(`admin/customer-form/${id}`);
+      this.navController.navigateForward(`admin/ordenes-form/${id}`);
     }
     nuevo(){
-      this.navController.navigateForward('admin/customer-form');
+      this.navController.navigateForward('admin/ordenes-form');
     
     }
     // loadcustomers(page: number = 1, filter: string = ''): void {

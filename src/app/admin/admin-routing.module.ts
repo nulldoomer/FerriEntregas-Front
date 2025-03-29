@@ -17,6 +17,7 @@ import { DelieveryStatusFormPage } from './delievery-status/delievery-status-for
 import { CustomerPage } from './customer/customer.page';
 import { CustomerFormPage } from './customer/customer-form/customer-form.page';
 import { DashboardPage } from './dashboard/dashboard.page';
+import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
 
 const routes: Routes = [
 
@@ -29,6 +30,8 @@ const routes: Routes = [
         { path: 'inicio', component: InicioPage },
         { path: 'notifications', component: NotificationsPage },
         { path: 'ordenes', component: OrdenesPage },
+        { path: 'ordenes-form', component: OrddenesFormPage },
+        { path: 'ordenes-form/:id', component: OrddenesFormPage },
         { path: 'rutas', component: RutasPage },
         { path: 'perfil', component: PerfilPage },
         { path: 'opciones', component: OpcionesPage },
