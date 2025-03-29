@@ -38,6 +38,7 @@
     "@capacitor/local-notifications": "^7.0.0",
     "@capacitor/push-notifications": "^7.0.0",
     "@capacitor/status-bar": "^7.0.0",
+    "@ionic-native/google-maps": "^5.5.0",
     "@ionic/angular": "^8.4.3",
     "autoprefixer": "^10.4.20",
     "buffer": "^6.0.3",
