@@ -33,6 +33,7 @@ const routes: Routes = [
         { path: 'perfil', component: PerfilPage },
         { path: 'opciones', component: OpcionesPage },
         {path: 'usuarios', component: UsuariosPage},
+        {path: 'usuarios-form', component: UsuariosFormPage},
         {path: 'usuarios-form/:id', component: UsuariosFormPage},
         {path: 'payment-type', component: PatmentTypePage},
         {path: 'payment-type-form/:id', component:PatmentTypeFormPage},

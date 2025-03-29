@@ -1,149 +1,78 @@
 <ion-header [translucent]="true">
-  <ion-card-header class="bg-orange-500 text-white rounded-lg">
-    <ion-card-title>
-      <ion-text color="light">Usuario</ion-text>
-    </ion-card-title>
-    
-  </ion-card-header>
-</ion-header>
+   <ion-card-header class="bg-orange-500 text-white rounded-lg">
+     <ion-card-title>
+       <ion-text color="light">{{titulo}}</ion-text>
+     </ion-card-title>
+   </ion-card-header>
+ </ion-header>
+ 
+ <ion-content [fullscreen]="true" class="bg-gray-50 p-4">
+   <div class="flex h-screen bg-gray-100">
+     <div class="m-5">
+       <form [formGroup]="userForm" (submit)="submit()">
+         <div class="mt-5 bg-white rounded-lg shadow">
+           <div class="px-5 pb-5">
+             <!-- Campos del formulario con formControlName -->
+             <input formControlName="nombres" placeholder="Nombres"
+               class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+ 
+             <input formControlName="apellidos" placeholder="Apellidos"
+               class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+ 
+             
+               <input formControlName="correo" type="email" placeholder="Correo"
+               class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+               @if (!id) {
 
-<ion-content [fullscreen]="true" class="bg-gray-50 p-4">
-  <div class="flex h-screen bg-gray-100 ">
-    <div class="m-auto">
-       <div>
-          <!-- <button type="button" class="relative w-full flex justify-center items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-black rounded-md hover:bg-gray-900  focus:outline-none   transition duration-300 transform active:scale-95 ease-in-out">
-             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
-                <g>
-                   <rect fill="none" height="24" width="24"></rect>
-                </g>
-                <g>
-                   <g>
-                      <path d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z"></path>
-                   </g>
-                </g>
-             </svg>
-             <span class="pl-2 mx-1">Create new shipping label</span>
-          </button> -->
-
-          
-
-
-          <div class="mt-5 bg-white rounded-lg shadow">
-             <div class="flex">
-                <div class="flex-1 py-5 pl-5 overflow-hidden">
-                   <svg class="inline align-text-top" xmlns="http://www.w3.org/2000/svg"
-                   width="24"
-                   height="24"
-                   viewBox="0 0 24 24"
-                   fill="none"
-                   stroke="currentColor"
-                   stroke-width="2"
-                   stroke-linecap="round"
-                   stroke-linejoin="round"
-                 >
-                   <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                   <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
-                   <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" />
-                   </svg>
-                   <h1 class="inline text-2xl font-semibold leading-none">Informacion de Usuario</h1>
-                </div>
+                  <input formControlName="password" type="password" placeholder="*******"
+                  class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+               }
+               
+               
+              
+               
+             <!-- Dirección de mapa -->
+             <select formControlName="roles"
+             class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+       <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+     </select>
+     
+               
+               
+               <!-- Resto de los campos del formulario -->
+               
+               <!-- Más campos y botones -->
              </div>
-             <div class="px-5 pb-5">
-                <input  placeholder="Nombres" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                
-                <input  placeholder="Apellidos" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                
-                <div class="flex">
-                   <div class="flex-grow w-1/4 pr-2"><input  placeholder="Correo" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></div>
-                   
-                   <div class="flex-grow"><input placeholder="Direccion" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></div>
-                </div>
-                
-             </div>
-             <div class="flex">
-                <div class="flex-1 py-5 pl-5 overflow-hidden">
-                   <svg class="inline align-text-top"   xmlns="http://www.w3.org/2000/svg"
-                   width="24"
-                   height="24"
-                   viewBox="0 0 24 24"
-                   fill="none"
-                   stroke="currentColor"
-                   stroke-width="2"
-                   stroke-linecap="round"
-                   stroke-linejoin="round"
-                 >
-                   <path d="M12 21h-5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10c.564 0 1.074 .234 1.437 .61" />
-                   <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-                   <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-                   <path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                   <path d="M19.001 15.5v1.5" />
-                   <path d="M19.001 21v1.5" />
-                   <path d="M22.032 17.25l-1.299 .75" />
-                   <path d="M17.27 20l-1.3 .75" />
-                   <path d="M15.97 17.25l1.3 .75" />
-                   <path d="M20.733 20l1.3 .75" />
-                 </svg>
-                   <h1 class="inline text-2xl font-semibold leading-none pt-3">Privilegios</h1>
-                </div>
-                <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
-             </div>
-             <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-              <div>
-                <label
-                  for="Option1"
-                  class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                >
-                  <input class="sr-only option-checkbox" id="Option1" type="checkbox" />
-                  <span class="text-sm"> Entregas </span>
-                </label>
+           </div>
+         <div class="flex flex-row-reverse p-3">
+           <div class="flex-initial pl-3">
+             <button  [disabled]="userForm.invalid"
+               class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 transition duration-300 transform active:scale-95 ease-in-out" >
+               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+                 <path d="M0 0h24v24H0V0z" fill="none"></path>
+                 <path d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3 3-1.34 3-3 3zm3-8H6V6h9v4z" opacity=".3"></path>
+                 <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
+               </svg>
+               <span class="pl-2 mx-1">Guardar</span>
+             </button>
+           </div>
+           @if (id) {
+ 
+              <div class="flex-initial">
+                <button type="button" [disabled]="userForm.invalid"
+                  class="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md hover:bg-red-200 hover:text-red-600 focus:outline-none transition duration-300 transform active:scale-95 ease-in-out">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" (click)="delete()">
+                    <path d="M0 0h24v24H0V0z" fill="none"></path>
+                    <path d="M8 9h8v10H8z" opacity=".3"></path>
+                    <path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"></path>
+                  </svg>
+                  <span class="pl-2 mx-1">Eliminar</span>
+                </button>
               </div>
-            
-              <div>
-                <label
-                  for="Option2"
-                  class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                >
-                  <input class="sr-only option-checkbox" id="Option2" type="checkbox" />
-                  <span class="text-sm"> Clientes </span>
-                </label>
-              </div>
-            
-              <div>
-                <label
-                  for="Option3"
-                  class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                >
-                  <input class="sr-only option-checkbox" id="Option3" type="checkbox" />
-                  <span class="text-sm"> Usuarios </span>
-                </label>
-              </div>
-            </div>
-             <hr class="mt-4">
-             <div class="flex flex-row-reverse p-3">
-                <div class="flex-initial pl-3">
-                   <button type="button" class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-black rounded-md hover:bg-gray-800  focus:outline-none focus:bg-gray-900  transition duration-300 transform active:scale-95 ease-in-out">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
-                         <path d="M0 0h24v24H0V0z" fill="none"></path>
-                         <path d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z" opacity=".3"></path>
-                         <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
-                      </svg>
-                      <span class="pl-2 mx-1">Save</span>
-                   </button>
-                </div>
-                <div class="flex-initial">
-                   <button type="button" class="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
-                         <path d="M0 0h24v24H0V0z" fill="none"></path>
-                         <path d="M8 9h8v10H8z" opacity=".3"></path>
-                         <path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"></path>
-                      </svg>
-                      <span class="pl-2 mx-1">Delete</span>
-                   </button>
-                </div>
-             </div>
-          </div>
-         
-       </div>
-    </div>
- </div>
-</ion-content>
+           }
+         </div>
+       </form>
+     </div>
+   </div>
+ </ion-content>
+ 
