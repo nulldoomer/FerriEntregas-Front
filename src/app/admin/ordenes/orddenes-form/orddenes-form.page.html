@@ -1,13 +1,339 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>orddenesForm</ion-title>
-  </ion-toolbar>
+  <ion-card-header class="bg-orange-500 text-white rounded-lg">
+    <ion-card-title>
+      <ion-text color="light">{{titulo}}</ion-text>
+    </ion-card-title>
+  </ion-card-header>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">orddenesForm</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="bg-gray-50 p-4">
+  <div class="flex h-screen bg-gray-100">
+    <div class="m-5 w-full">
+      <form [formGroup]="ordenesForm" (submit)="submit()">
+        <div class="mt-5 bg-white rounded-lg shadow">
+          <div class="px-5 pb-5">
+            <label for="" class="mx-3 my-4 py-3">Numeracion</label>
+            <div class="relative w-full">
+              <input 
+                formControlName="numeracion"
+                placeholder="numeracion"
+                class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+              >
+              
+              <svg 
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+              >
+                <path d="M4 15a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
+                <path d="M16 10v4a2 2 0 1 0 4 0v-4a2 2 0 1 0 -4 0z" />
+                <path d="M11 12h2" />
+              </svg>
+            </div>
+            <label for="" class="mx-3 my-4 py-3">Numero de orden</label>
+            <div class="relative w-full">
+             
+              <input formControlName="OrdenesNumber" placeholder="OrdenesNumber"
+              class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3">
+                <svg 
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+                <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+                <path d="M14 14v-8l-2 2" />
+              </svg>
+            </div>
+            <label for="" class="mx-3 my-2">Hora estimada de inicio</label> 
+            <div class="relative w-full">
+              <input formControlName="estimateHourInit" placeholder="estimateHourInit"
+              class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3">
+                <svg 
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+                <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                <path d="M15 3v4" />
+                <path d="M7 3v4" />
+                <path d="M3 11h16" />
+                <path d="M18 16.496v1.504l1 1" />
+              </svg>
+            </div>
+            <label for="" class="mx-3 my-2">Hora estimada de finalizacion</label>
+            <div class="relative w-full">
+
+            <input formControlName="estimateHourEnd" placeholder="estimateHourEnd"
+            class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3">
+            <svg 
+            class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+            <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+            <path d="M15 3v4" />
+            <path d="M7 3v4" />
+            <path d="M3 11h16" />
+            <path d="M18 16.496v1.504l1 1" />
+          </svg>
+            </div>
+            <label for="" class="mx-3 my-2">Fecha de la entrega</label>
+            <div class="relative w-full">
+             
+  
+                <input formControlName="DeliveryDate" type="datetime" placeholder="DeliveryDate"
+                class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3">
+                <svg 
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+                <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                <path d="M15 3v4" />
+                <path d="M7 3v4" />
+                <path d="M3 11h16" />
+                <path d="M18 16.496v1.504l1 1" />
+              </svg>
+            </div>
+            <label for="" class="mx-3 my-2">Estado</label>
+            <div class="relative w-full">
+              
+               
+             <!-- Dirección de mapa -->
+             <select formControlName="deliveryStatusName"
+             class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3">
+       <option *ngFor="let status of deliveryStatusNames" [value]="status.id">{{ status.name }}</option>
+     </select>
+     <svg 
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M6 12v-2a6 6 0 1 1 12 0v2" />
+                <path d="M15 9l3 3l3 -3" />
+              </svg>
+             
+            </div>
+            
+            
+            
+            
+           
+
+              
+              
+              
+            <label for="" class="mx-3 my-4 py-3">credito</label>
+            <div class="relative w-full">
+              <input 
+                formControlName="credit"
+                placeholder="credit"
+                class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+              >
+              
+              <svg 
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+              >
+                <path d="M4 15a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
+                <path d="M16 10v4a2 2 0 1 0 4 0v-4a2 2 0 1 0 -4 0z" />
+                <path d="M11 12h2" />
+              </svg>
+            </div>
+            <label for="" class="mx-3 my-4 py-3">total</label>
+            <div class="relative w-full">
+              <input 
+                formControlName="total"
+                placeholder="total"
+                class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+              >
+              
+              <svg 
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 "
+                xmlns="http://www.w3.org/2000/svg"
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+              >
+                <path d="M4 15a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
+                <path d="M16 10v4a2 2 0 1 0 4 0v-4a2 2 0 1 0 -4 0z" />
+                <path d="M11 12h2" />
+              </svg>
+            </div>
+            <label for="">Conductores</label>
+  @if (ordenesForm.value.user) {
+    <input formControlName="user"  placeholder="user"
+    class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3" hidden>
+    <div class="relative w-full">
+             
+      <input [value]="usersSelected?.firstNames+' '+usersSelected?.lastNames + ' '+ getRoleName(usersSelected?.roles?.[0]?.name ?? '')"  placeholder="user" (click)="seleccionaOtroUsuario()"
+      class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3"readonly>
+      <svg 
+      class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+      <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+      <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+    </svg>
+    </div>
+
+  }@else {
+    <div class="my-3 p-3">
+
+      <div style="max-height: 150px; overflow-y: auto;">
+        <ion-list>
+          <ion-item *ngFor="let user of users " (click)="selectUser(user)">
+            {{ user.firstNames + '  -  '}}
+          <span class="float-right text-gray-500">
+            {{ getRoleName(user.roles[0].name) }}
+          </span>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+}
+<label for="">Clientes</label>
+  @if (ordenesForm.value.customer) {
+    <input formControlName="customer"  placeholder="customer"
+    class="text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400" hidden>
+    <div class="relative w-full">
+              
+    <input [value]="customersSelected?.firstNames+' '+customersSelected?.lastNames" (click)="seleccionaOtroCliente()" placeholder="user"
+    class="text-black placeholder-gray-600 w-full px-4 py-2.5 pl-10 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 mb-3" readonly >
+    <svg 
+    class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500  "
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+  </svg>
+  </div>
+  }@else {
+    <div class="my-3 p-3">
+
+      <div style="max-height: 150px; overflow-y: auto;">
+        <ion-list>
+          <ion-item *ngFor="let customer of customers " (click)="selectCustomer(customer)">
+            {{ customer.firstNames + '    ' + customer.lastNames}}
+          
+        </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  }
+
+  
+
+            </div>
+          </div>
+        <div class="flex flex-row-reverse p-3">
+          <div class="flex-initial pl-3">
+            <button  [disabled]="ordenesForm.invalid"
+              class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 transition duration-300 transform active:scale-95 ease-in-out" >
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                <path d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3 3-1.34 3-3 3zm3-8H6V6h9v4z" opacity=".3"></path>
+                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
+              </svg>
+              <span class="pl-2 mx-1">Guardar</span>
+            </button>
+          </div>
+          @if (id) {
+
+             <div class="flex-initial">
+               <button type="button" [disabled]="ordenesForm.invalid"
+                 class="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md hover:bg-red-200 hover:text-red-600 focus:outline-none transition duration-300 transform active:scale-95 ease-in-out">
+                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" (click)="delete()">
+                   <path d="M0 0h24v24H0V0z" fill="none"></path>
+                   <path d="M8 9h8v10H8z" opacity=".3"></path>
+                   <path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"></path>
+                 </svg>
+                 <span class="pl-2 mx-1">Eliminar</span>
+               </button>
+             </div>
+          }
+        </div>
+      </form>
+    </div>
+  </div>
 </ion-content>

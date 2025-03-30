@@ -3,7 +3,7 @@ import { ToastService } from './toast.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable, tap } from 'rxjs';
-import { OrdenesListResponse, OrdenesResponse } from 'src/interfaces/ordenes.interface';
+import { OrdenesListResponse, OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class OrdenesService {
        })
      );
    }
-   getCustomerById(id: number): Observable<OrdenesResponse> {
+   getCustomerById(id: string): Observable<OrdenesResponse> {
      return this.http.get<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${id}`).pipe(
        tap(),
        catchError(error => {
@@ -48,8 +48,8 @@ export class OrdenesService {
        })
      );
    }
-   updateCustomer(id: number, customer: any): Observable<OrdenesResponse> {
-     return this.http.put<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${id}`, customer).pipe(
+   updateCustomer(orden: OrdenesResult): Observable<OrdenesResponse> {
+     return this.http.put<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${orden.id}`, orden).pipe(
        tap(),
        catchError(error => {
          this.toastService.showToast('Error al realizar el pago', 'error');
@@ -57,7 +57,7 @@ export class OrdenesService {
        })
      );
    }
-   deleteCustomer(id: number): Observable<OrdenesResponse> {
+   deleteCustomer(id: string): Observable<OrdenesResponse> {
      return this.http.delete<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${id}`).pipe(
        tap(),
        catchError(error => {

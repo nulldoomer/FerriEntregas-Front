@@ -26,17 +26,18 @@ export interface OrdenesResponse {
 }
 
 export interface OrdenesResult {
-  id: string;
+  id?: string;
   numeration: string;
   OrdenesNumber: string;
   deliveryDate: string;
   estimateHourInit: string;
+  invoiceNumber?:string;
   estimateHourEnd: string;
   deliveryStatusName: StatusInfo;
   paymentType: StatusInfo;
   credit: number;
   total: number;
-  evidence: any[];
+  evidence?: any[];
   user: User;
   customer: CustomerInfo;
   deliveryData: string;
@@ -127,7 +128,7 @@ export interface Sort {
 
 
 
-  // }..
+  // }
 
 
 
