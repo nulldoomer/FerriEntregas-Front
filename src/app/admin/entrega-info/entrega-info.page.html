@@ -20,7 +20,8 @@
     <!-- Croquis -->
     <div class="relative mb-6">
       <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d996.1676125164406!2d-78.63142883049792!3d-1.2475063993511946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d391a9e4bfa7e7%3A0x7fd1d2b94d64372d!2sLetamendi%20%26%20Eusebio%20Barrera%2C%20Ambato!5e0!3m2!1ses!2sec!4v1710113044864!5m2!1ses!2sec" 
+        *ngIf="googleMapsUrl"  
+        [src]="googleMapsUrl" 
         width="100%" 
         height="300" 
         style="border:0; border-radius: 10px;" 
@@ -30,10 +31,11 @@
     </div>
     
   
+    
+  
     <ion-content class="ion-padding">
       <div class="mb-6 text-center">
-        <a href="https://www.google.com/maps?q=Letamendy+y+Eusebio+Barrera,+Ambato" target="_blank">
-          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-3xl transition-colors flex items-center justify-center space-x-2">
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-3xl transition-colors flex items-center justify-center space-x-2" (click)="openGoogleMapsRoute()">
             <!-- Logo de Google Maps -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
               <path d="M12 9.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"></path>
@@ -44,7 +46,6 @@
             </svg>
             <span>Ver en Google Maps</span>
           </button>
-        </a>
       </div>
       
     <!-- Imagen de la factura -->
@@ -87,7 +88,7 @@
             <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
           </ion-avatar>
           <ion-label>
-            <h2>Connor Smith</h2>
+            <h2>{{orden.customer.firstNames + ' ' +orden.customer.lastNames}}</h2>
             <p>
               <ion-icon name="star" class="pl-2 text-orange-500 "></ion-icon>
               4.9
@@ -103,15 +104,15 @@
         <ion-item>
           <ion-label>
             <h2>Valor cancelado</h2>
-            <p>$30</p>
+            <p>${{orden.credit}}</p>
           </ion-label>
           <ion-label>
             <h2>Valor por cancelar</h2>
-            <p>$50</p>
+            <p>${{orden.total}}</p>
           </ion-label>
           <ion-label>
             <h2>Observaciones</h2>
-            <p>Ninguna</p>
+            <p>{{orden.observations}}</p>
           </ion-label>
         </ion-item>
         <div class="flex-grow"></div>
