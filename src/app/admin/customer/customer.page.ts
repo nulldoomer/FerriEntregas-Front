@@ -79,6 +79,9 @@ throw new Error('Method not implemented.');
       );
     }
   }
+  ngAfterViewInit() {
+    this.loadcustomers();
+  }
 
 
 

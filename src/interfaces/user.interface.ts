@@ -13,6 +13,7 @@ export interface Role {
     profileImage?: string | null;
     emailConfirmed?: boolean;
     roles: Role[];
+    role?: string
   }
   
   export interface Pageable {

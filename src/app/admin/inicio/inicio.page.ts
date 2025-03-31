@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { OrdenesService } from 'src/app/services/ordenes.service';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { OrdenesResult } from 'src/interfaces/ordenes.interface';
 
 @Component({
   selector: 'app-inicio',
@@ -21,6 +23,7 @@ edit(_t85: any) {
 throw new Error('Method not implemented.');
 }
   pokemons: any[] = [];
+  ordenes: any[] = [];
   offset = 0;
   limit = 10;
   loading = false;
@@ -28,10 +31,12 @@ throw new Error('Method not implemented.');
   @ViewChild('loadTrigger', { static: false }) loadTrigger!: ElementRef;
   constructor(
     private navController: NavController,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private ordnesService: OrdenesService,
   ) {}
   ngOnInit() {
-    this.loadPokemons();
+    // this.loadPokemons();
+    this.loadOrdenes();
   }
   ionViewWillLeave() {
     this.subscriptions.unsubscribe(); 
@@ -40,24 +45,46 @@ throw new Error('Method not implemented.');
     if (this.loadTrigger) {
       const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && !this.loading) {
-          this.loadPokemons();
+          // this.loadPokemons();
+          this.loadOrdenes();
         }
       }, { threshold: 0.5 });
 
       observer.observe(this.loadTrigger.nativeElement);
     }
   }
-  loadPokemons() {
+  // loadPokemons() {
+  //   if (this.loading) return;
+  //   this.loading = true;
+  //   this.subscriptions.add(
+
+  //     this.pokemonService.getPokemons(this.limit, this.offset).subscribe((response) => {
+  //       response.results.forEach((pokemon: any, index: number) => {
+  //         const id = this.offset + index + 1;
+  //         this.pokemons.push({
+  //           name: pokemon.name,
+  //           image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+  //         });
+  //       });
+  
+  //       this.offset += this.limit;
+  //       this.loading = false;
+  //     })
+  //   );
+  // }
+  loadOrdenes(){
     if (this.loading) return;
     this.loading = true;
     this.subscriptions.add(
 
-      this.pokemonService.getPokemons(this.limit, this.offset).subscribe((response) => {
-        response.results.forEach((pokemon: any, index: number) => {
+      this.ordnesService.getCustomers(this.limit, this.offset).subscribe((response) => {
+        console.log(response)
+        response.result.content.forEach((orden: any, index: number) => {
           const id = this.offset + index + 1;
-          this.pokemons.push({
-            name: pokemon.name,
-            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+          this.ordenes.push({
+            numeration: orden.numeration,
+            customer: orden.customer.firstNames + ' ' + orden.customer.lastNames,
+            id: orden.id
           });
         });
   
@@ -65,7 +92,10 @@ throw new Error('Method not implemented.');
         this.loading = false;
       })
     );
+
   }
+
+
   goToNotificationsPage() {
     this.navController.navigateForward('admin/notifications');
   }

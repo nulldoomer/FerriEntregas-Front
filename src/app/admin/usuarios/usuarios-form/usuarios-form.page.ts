@@ -157,12 +157,13 @@ export class UsuariosFormPage implements OnInit {
         lastNames: this.userForm.value.apellidos,
         email: this.userForm.value.correo,
         roles: this.userForm.value.roles,
+        role: this.userForm.value.roles,
       };
       if (this.id) {
         this.userService.updateuser(user).subscribe({
           next: (response) => {
             console.log(response);
-            this.navController.navigateForward('/admin/user');
+            this.navController.navigateForward('/admin/usuarios');
           },
           error: (error) => {
             console.error('Error al actualizar el cliente:', error);
@@ -173,7 +174,7 @@ export class UsuariosFormPage implements OnInit {
         console.log(user);
         this.userService.createuser(user).subscribe({
           next: (response) => {
-            this.navController.navigateForward('/admin/user');
+            this.navController.navigateForward('/admin/usuarios');
           },
           error: (error) => {
             console.error('Error al crear el cliente:', error);

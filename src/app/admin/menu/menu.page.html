@@ -2,12 +2,20 @@
   <ion-header>
     <ion-toolbar>
       <ion-title>Menú</ion-title>
+      <header class="bg-gradient-to-r from-indigo-500 to-indigo-600 transform flex items-center mb-10 py-8 px-6">
+        <img class="rounded-full w-20 h-20 ring-4 ring-opacity-20 ring-gray-200" src="https://randomuser.me/api/portraits/women/79.jpg" alt="Dr. Jessica James">
+       <div class="ml-5">
+          <h1 class="text-white tracking-wide text-lg">Dr. Jessica James</h1>
+        <p class="text-gray-300 tracking-wider text-sm">Dermathologist</p>
+       </div>
+      </header>
     </ion-toolbar>
   </ion-header>
   
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item class="flex justify-center items-center text-center" (click)="goTo('dashboard')">
+        <span class="text-gray-400 "><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg></span>
         <label class="w-full"
         [ngClass]="{
            'font-semibold': currentRoute == 'dashboard'

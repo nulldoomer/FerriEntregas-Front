@@ -1,6 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MapMarker } from '@angular/google-maps';
 import { Geolocation } from '@capacitor/geolocation';
+import { OrdenesService } from 'src/app/services/ordenes.service';
 
 @Component({
   selector: 'app-rutas',
@@ -31,7 +32,7 @@ export class RutasPage implements AfterViewInit {
     window.open(url, '_blank'); // Abre Google Maps en una nueva pestaña
   }
   
-  constructor() {}
+  constructor(private ordenesService: OrdenesService) {}
 
   ngAfterViewInit(): void {
     this.loadMarkers();
