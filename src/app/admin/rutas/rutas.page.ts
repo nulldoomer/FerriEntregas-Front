@@ -87,7 +87,7 @@ export class RutasPage implements AfterViewInit {
   }
   openInfoEntrega(id: string){
     console.log(id);
-    this.navController.navigateForward(`admin/ordenes-form/${id}`);
+    this.navController.navigateForward(`admin/entrega-info/${id}`);
   }
   loadMarkers() {
     this.markers = this.locations.map(location => ({
