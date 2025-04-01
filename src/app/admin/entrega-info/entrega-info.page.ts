@@ -40,7 +40,9 @@ export class EntregaInfoPage implements OnInit {
         console.log(response.result);
       // Aseguramos que los valores existen antes de usarlos
       if (response.result.customer.addressMaps) {
+
         const addressParts = response.result.customer.addressMaps.split('=');
+        console.log(response.result.customer.addressMaps);
           this.rutaA = addressParts[1];
           
           this.rutaB = this.rutaA.split(',')[1];
@@ -57,18 +59,26 @@ export class EntregaInfoPage implements OnInit {
     });
   }
   // Latitud: 1.2365728
-  // entrega-info.page.ts:48 Longitud: 78.6214727
   setGoogleMapsUrl() {
     if (this.rutaA && this.rutaB) {
-      const unsafeUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d996.1676125164406!2d${this.rutaB}!3d${this.rutaA}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zLTEuMjM2NTcyOCwgLTc4LjYyMTQ3Mjc!5e0!3m2!1ses!2sec!4v1710113044864!5m2!1ses!2sec`;
-      console.log("URL de Google Maps:", unsafeUrl);
-      
-      // Sanitizar la URL
-      this.googleMapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
+      // Verifica que las coordenadas son válidas
+      const lat = parseFloat(this.rutaA);
+      const lng = parseFloat(this.rutaB);
+  
+      if (!isNaN(lat) && !isNaN(lng)) {
+        const unsafeUrl = `https://www.google.com/maps?q=${lat},${lng}&hl=es&z=14&output=embed`;
+        console.log("URL de Google Maps:", unsafeUrl);
+        
+        // Sanitizar la URL
+        this.googleMapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
+      } else {
+        console.error("Coordenadas inválidas:", this.rutaA, this.rutaB);
+      }
     } else {
       console.error("Coordenadas no definidas correctamente");
     }
   }
+  
   
   // <!-- https://www.google.com/maps?q=-1.2365728,-78.6214727 -->
 

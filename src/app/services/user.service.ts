@@ -40,6 +40,24 @@ export class userService {
       })
     );
   }
+  getDrivers(page: number, pageSize: number, filter: string = ''):Observable<ApiUserResponse>{
+    const offset = (page - 1) * pageSize;
+    let params = new HttpParams()
+      .set('offset', offset.toString())
+      .set('limit', pageSize.toString());
+
+    if (filter) {
+      params = params.set('search', filter);
+    }
+
+    return this.http.get<ApiUserResponse>(`${environment.apiUrlBase}/users/role/DRIVER`, { params }).pipe(
+      tap(),
+      catchError(error => {
+        this.toastService.showToast('Error al realizar el pago', 'error');
+        throw error;
+      })
+    );
+  }
   createuser(user: User): Observable<ApiUserResponseOne> {
     return this.http.post<ApiUserResponseOne>(`${environment.apiUrlBase}/users`, user).pipe(
       tap(() => this.toastService.showToast('Usuario ingresada con éxito', 'success')),

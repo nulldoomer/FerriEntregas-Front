@@ -1,22 +1,47 @@
 import { User } from "./user.interface";
 
 export interface OrdenesRequest {
+  id?: string,
   numeration: string;
-  OrdenesNumber: string;
+  invoiceNumber: string;
   deliveryDate: string;
   estimateHourInit: string;
   estimateHourEnd: string;
-  deliveryStatusName: string;
+  deliveryStatus: string;
   paymentType: string;
   credit: number;
   total: number;
   evidence: any[];
-  user: string;
-  customer: string;
+  userId: string;
+  customerId: string;
   deliveryData: string;
   observations: string;
   comments: string;
 }
+// {
+//   "numeration": "1234",
+//   "invoiceNumber": "3",
+//   "deliveryDate": "2025-04-01",
+// "estimateHourInit": "08:00:00",
+//     "estimateHourEnd": "09:00:00",
+//   "deliveryStatus": "8740617c-d9f1-4717-a66a-ebcb9bd9bf16",
+//   "paymentType": "d5a65639-1c3a-421e-b870-fc5a8efe3b79",
+//   "credit": 0,
+//   "total": 0,
+//   "evidence": [
+  
+//   ],
+//  "deliveryStatus": "Pendiente",
+//   "paymentType": "Pagado",
+//   "credit": 25.75,
+//   "total": 120.5,
+//   "evidence": [],
+//   "userId": "25fe9e1a-ab48-47e9-a4a0-9b68cbc24d68",
+//   "customerId": "607add50-eeca-4024-b21a-53901c2cb85a",
+//   "deliveryData": "",
+//   "observations": "",
+//   "comments": ""
+// }
 
 export interface OrdenesResponse {
   result: OrdenesResult;
@@ -33,7 +58,7 @@ export interface OrdenesResult {
   estimateHourInit: string;
   invoiceNumber?:string;
   estimateHourEnd: string;
-  deliveryStatusName: StatusInfo;
+  deliveryStatus: StatusInfo;
   paymentType: StatusInfo;
   credit: number;
   total: number;

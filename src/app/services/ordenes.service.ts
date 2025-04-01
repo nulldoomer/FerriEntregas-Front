@@ -3,7 +3,7 @@ import { ToastService } from './toast.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable, tap } from 'rxjs';
-import { OrdenesListResponse, OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface';
+import { OrdenesListResponse, OrdenesRequest, OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +39,8 @@ export class OrdenesService {
        })
      );
    }
-   createCustomer(customer: any): Observable<OrdenesResponse> {
-     return this.http.post<OrdenesResponse>(`${environment.apiUrlBase}/deliveries`, customer).pipe(
+   createCustomer(orden: OrdenesRequest): Observable<OrdenesResponse> {
+     return this.http.post<OrdenesResponse>(`${environment.apiUrlBase}/deliveries`, orden).pipe(
        tap(),
        catchError(error => {
          this.toastService.showToast('Error al realizar el pago', 'error');
@@ -48,7 +48,7 @@ export class OrdenesService {
        })
      );
    }
-   updateCustomer(orden: OrdenesResult): Observable<OrdenesResponse> {
+   updateCustomer(orden: OrdenesRequest): Observable<OrdenesResponse> {
      return this.http.put<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${orden.id}`, orden).pipe(
        tap(),
        catchError(error => {
@@ -65,5 +65,18 @@ export class OrdenesService {
          throw error;
        })
      );
+   }
+  //  /api/v1/deliveries/create-first
+   getDataFist(){
+
+    return this.http.get<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/create-first`).pipe(
+      tap(),
+      catchError(error => {
+        this.toastService.showToast('Error al realizar el pago', 'error');
+        throw error;
+      })
+    );
+
+
    }
 }

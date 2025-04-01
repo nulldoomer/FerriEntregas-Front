@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { OrdenesService } from 'src/app/services/ordenes.service';
-import { OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface';
+import { OrdenesRequest, OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface';
 import { Role, User } from 'src/interfaces/user.interface';
 import { DateTimeModalPage } from '../../customer/date-time-modal/date-time-modal.page';
 import { DelieveryStatus } from 'src/interfaces/delievery.interface';
@@ -19,12 +20,27 @@ import { Customer } from 'src/interfaces/customer.interface';
   standalone:false
 })
 export class OrddenesFormPage implements OnInit {
+onFileSelected($event: Event) {
+throw new Error('Method not implemented.');
+}
 
   @ViewChild('mapSearchInput', { static: false }) mapSearchInput!: ElementRef;
   deliveryStatusNames: DelieveryStatus[] = []
   users: User[] = []
+files: File[] = [];
   usersSelected: User | undefined
+  photo: string | null = null;
 
+  async openFileOptions() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt, // Permite elegir entre cámara y galería
+    });
+
+    this.photo = image.dataUrl ?? null; // Guardamos la imagen en la variable
+  }
   customers: Customer[] = []
   customersSelected: Customer | undefined
   
@@ -49,7 +65,7 @@ export class OrddenesFormPage implements OnInit {
 
 ];
   ordenesForm: FormGroup;
-  orden: OrdenesResult | undefined;
+  orden: OrdenesRequest | undefined;
   id: string = '';
   titulo: string = 'Agregar Usuario';
 
@@ -57,9 +73,9 @@ export class OrddenesFormPage implements OnInit {
     private route: ActivatedRoute,  private navController: NavController, private deliveryStatus: DelieveryService, private userService: userService, private customerService: CustomerService,
   ) {
     this.ordenesForm = this.fb.group({
-      numeracion: ['', Validators.required],
+      numeration: ['', Validators.required],
       OrdenesNumber: ['', Validators.required],
-      DeliveryDate: ['', [Validators.required, ]],
+      deliveryDate: ['', [Validators.required, ]],
       estimateHourInit: ['', Validators.required],
       estimateHourEnd: ['', Validators.required],
       deliveryStatusName: ['', Validators.required],
@@ -68,7 +84,7 @@ export class OrddenesFormPage implements OnInit {
       total: ['', Validators.required],
       user: ['', Validators.required],
       customer: ['', Validators.required],
-      deliveryData: ['', Validators.required],
+      deliveryData: ['', ],
       obsertvations: ['', ],
       comments: ['', ],
     });
@@ -79,7 +95,14 @@ export class OrddenesFormPage implements OnInit {
   seleccionaOtroCliente() {
     this.ordenesForm.get('customer')?.setValue('');
   }
-  
+  onFileChange(event: any): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      for (let i = 0; i < fileList.length; i++) {
+        this.files.push(fileList[i]);
+      }
+    }
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || '';
@@ -92,7 +115,10 @@ export class OrddenesFormPage implements OnInit {
       this.titulo = 'Editar estado de entrega';
       console.log(this.id)
       this.getOrden();
-    } 
+    }else{
+      this.loadNew();
+    
+    }
   }
   selectUser(user: User) {
     this.usersSelected = user;
@@ -118,6 +144,35 @@ export class OrddenesFormPage implements OnInit {
   
       await modal.present();
     }
+    loadNew(){
+      this.ordenesService.getDataFist().subscribe({
+        next: (response) => {
+          console.log(response);
+          this.orden = {
+            ...response.result,
+            userId: response.result.user?.id ?? '',
+            customerId: response.result.customer?.id ?? '',
+            invoiceNumber: response.result.invoiceNumber ?? '', // Ensure invoiceNumber is a string
+            deliveryStatus: response.result.deliveryStatus?.name ?? '', // Ensure deliveryStatus is a string
+            paymentType: response.result.paymentType?.name ?? '', // Convert paymentType to string
+            evidence: response.result.evidence ?? [] // Ensure evidence is always an array
+          };
+    
+    
+          this.ordenesForm.patchValue({
+            numeration: this.orden.numeration,
+            DeliveryDate: this.orden.deliveryDate,
+            estimateHourInit: this.orden.estimateHourInit, 
+            estimateHourEnd: this.orden.estimateHourEnd,
+            paymentType: this.orden.paymentType,
+            deliveryStatusName: this.orden.deliveryStatus ?? ''
+          });
+        },
+        error: (error) => {
+          console.error('Error al obtener la orden:', error);
+        }
+      });
+    }
   loadStatus(){
     this.deliveryStatus.getDelieveryIntents().subscribe({
       next: (response) => {
@@ -130,7 +185,7 @@ export class OrddenesFormPage implements OnInit {
 
   }
   loadUsers(){
-    this.userService.getusers(0, 100).subscribe({
+    this.userService.getDrivers(0, 100).subscribe({
       next: (response) => {
         this.users = response.result.content;
       },
@@ -168,14 +223,22 @@ export class OrddenesFormPage implements OnInit {
     this.ordenesService.getCustomerById(this.id).subscribe({
       next: (response) => {
         console.log(response);
-        this.orden = response.result;
+        this.orden = {
+          ...response.result,
+            userId: response.result.user?.id ?? '',
+            customerId: response.result.customer?.id ?? '',
+            invoiceNumber: response.result.invoiceNumber ?? '', // Ensure invoiceNumber is a string
+            deliveryStatus: response.result.deliveryStatus?.name ?? '', // Ensure deliveryStatus is a string
+            paymentType: response.result.paymentType?.name ?? '', // Convert paymentType to string
+            evidence: response.result.evidence ?? [] // Ensure evidence is always an array
+        };
   
         // Validar si existen user y customer antes de acceder a id
-        this.usersSelected = this.orden?.user ?? undefined;
-        this.customersSelected = this.orden?.customer ?? undefined;
+        this.usersSelected = this.users.find(user => user.id === this.orden?.userId) ?? undefined;
+        this.customersSelected = this.customers.find(customer => customer.id === this.orden?.customerId) ?? undefined;
   
         this.ordenesForm.patchValue({
-          numeracion: this.orden.numeration,
+          numeration: this.orden.numeration,
           OrdenesNumber: this.orden.invoiceNumber,
           DeliveryDate: this.orden.deliveryDate,
           estimateHourInit: this.orden.estimateHourInit, 
@@ -183,12 +246,12 @@ export class OrddenesFormPage implements OnInit {
           paymentType: this.orden.paymentType,
           credit: this.orden.credit,
           total: this.orden.total,
-          user: this.orden.user ? this.orden.user.id : '',
-          customer: this.orden.customer ? this.orden.customer.id : '',
+          user: this.orden.userId ? this.orden.userId : '',
+          customer: this.orden.customerId ? this.orden.customerId: '',
           deliveryData: this.orden.deliveryData,
           comments: this.orden.comments,
           observations: this.orden.observations,
-          deliveryStatusName: this.orden.deliveryStatusName?.id ?? ''
+          deliveryStatusName: this.orden.deliveryStatus ?? ''
         });
       },
       error: (error) => {
@@ -209,24 +272,24 @@ export class OrddenesFormPage implements OnInit {
   }
 
   submit() {
-    console.log(this.ordenesForm.value);
+    // console.log(this.ordenesForm.value);
     if (this.ordenesForm.valid) {
-      const orden: OrdenesResult = {
-        id: this.id,
+      const orden: OrdenesRequest = {
         numeration: this.ordenesForm.value.numeration,
-          OrdenesNumber: this.ordenesForm.value.OrdenesNumber,
-          deliveryDate: this.ordenesForm.value.deliveryDate,
-          estimateHourInit: this.ordenesForm.value.estimateHourInit, 
-          estimateHourEnd: this.ordenesForm.value.estimateHourEnd ,
-          paymentType: this.ordenesForm.value.paymentType,
-          credit: this.ordenesForm.value.credit,
-          total: this.ordenesForm.value.total,
-          user: this.ordenesForm.value.user,
-          customer: this.ordenesForm.value.customer,
-          deliveryData: this.ordenesForm.value.deliveryData,
-          comments: this.ordenesForm.value.comments,
-          deliveryStatusName: this.ordenesForm.value.deliveryStatusName,
-          observations: this.ordenesForm.value.observations,
+        invoiceNumber: this.ordenesForm.value.OrdenesNumber,
+        deliveryDate: this.ordenesForm.value.deliveryDate,
+        estimateHourInit: this.ordenesForm.value.estimateHourInit,
+        estimateHourEnd: this.ordenesForm.value.estimateHourEnd,
+        paymentType: this.ordenesForm.value.paymentType,
+        credit: this.ordenesForm.value.credit,
+        total: this.ordenesForm.value.total,
+        userId: this.ordenesForm.value.user,
+        customerId: this.ordenesForm.value.customer,
+        deliveryData: this.ordenesForm.value.deliveryData,
+        comments: this.ordenesForm.value.comments,
+        deliveryStatus: this.ordenesForm.value.deliveryStatusName,
+        observations: this.ordenesForm.value.observations,
+        evidence: []
       };
       if (this.id) {
         console.log('actualizar');
