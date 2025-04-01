@@ -83,15 +83,16 @@ export class OrddenesFormPage implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || '';
+    console.log(this.id)
     this.loadStatus();
     this.loadUsers();
     this.loadCustomers();
     
-    if (!this.id) {
-    } else {
+    if (this.id) {
       this.titulo = 'Editar estado de entrega';
-      this.getOrden(this.id);
-    }
+      console.log(this.id)
+      this.getOrden();
+    } 
   }
   selectUser(user: User) {
     this.usersSelected = user;
@@ -163,50 +164,39 @@ export class OrddenesFormPage implements OnInit {
 
 
 
-  getOrden(id: string) {
-    this.ordenesService.getCustomerById(id).subscribe({
+  getOrden() {
+    this.ordenesService.getCustomerById(this.id).subscribe({
       next: (response) => {
         console.log(response);
         this.orden = response.result;
-        this.usersSelected = response.result.user;
-        this.customersSelected = response.result.customer;
+  
+        // Validar si existen user y customer antes de acceder a id
+        this.usersSelected = this.orden?.user ?? undefined;
+        this.customersSelected = this.orden?.customer ?? undefined;
+  
         this.ordenesForm.patchValue({
           numeracion: this.orden.numeration,
-          OrdenesNumber: this.orden.invoiceNumber          ,
+          OrdenesNumber: this.orden.invoiceNumber,
           DeliveryDate: this.orden.deliveryDate,
           estimateHourInit: this.orden.estimateHourInit, 
-          estimateHourEnd: this.orden.estimateHourEnd ,
+          estimateHourEnd: this.orden.estimateHourEnd,
           paymentType: this.orden.paymentType,
           credit: this.orden.credit,
           total: this.orden.total,
-          user: this.orden.user.id,
-          customer: this.orden.customer.id,
+          user: this.orden.user ? this.orden.user.id : '',
+          customer: this.orden.customer ? this.orden.customer.id : '',
           deliveryData: this.orden.deliveryData,
           comments: this.orden.comments,
           observations: this.orden.observations,
-          deliveryStatusName: this.orden.deliveryStatusName.id
-      //     numeracion: ['', Validators.required],
-      // OrdenesNumber: ['', Validators.required],
-      // DeliveryDate: ['', [Validators.required, ]],
-      // estimateHourInit: ['', Validators.required],
-      // estimateHourEnd: ['', Validators.required],
-      // deliveryStatusName: ['', Validators.required],
-      // paymentType: ['', Validators.required],
-      // credit: ['', Validators.required],
-      // total: ['', Validators.required],
-      // user: ['', Validators.required],
-      // customer: ['', Validators.required],
-      // deliveryData: ['', Validators.required],
-      // obsertvations: ['', Validators.required],
-      // comments: ['', Validators.required],
+          deliveryStatusName: this.orden.deliveryStatusName?.id ?? ''
         });
-        
       },
       error: (error) => {
         console.error('Error al obtener la orden:', error);
       }
     });
   }
+  
   delete(){
     this.ordenesService.deleteCustomer(this.id).subscribe({
       next: (response) => {

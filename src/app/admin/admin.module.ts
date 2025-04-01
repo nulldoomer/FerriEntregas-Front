@@ -74,7 +74,7 @@ import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+ 
   ]
 })
 export class AdminModule { }
