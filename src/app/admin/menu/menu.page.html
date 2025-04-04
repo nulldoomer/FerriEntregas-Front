@@ -1,53 +1,48 @@
 <ion-menu contentId="main-content" menuId="main-menu">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menú</ion-title>
-      <header class="bg-gradient-to-r from-indigo-500 to-indigo-600 transform flex items-center mb-10 py-8 px-6">
-        <img class="rounded-full w-20 h-20 ring-4 ring-opacity-20 ring-gray-200" src="https://randomuser.me/api/portraits/women/79.jpg" alt="Dr. Jessica James">
-       <div class="ml-5">
-          <h1 class="text-white tracking-wide text-lg">Dr. Jessica James</h1>
-        <p class="text-gray-300 tracking-wider text-sm">Dermathologist</p>
-       </div>
-      </header>
-    </ion-toolbar>
+  <ion-header  class="flex items-center mb-10 py-8 px-6 border-black bg-white shadow-md">
+    <img src="../../../assets/Group 136.svg" alt="">
   </ion-header>
-  
+
+
+
+
   <ion-content class="ion-padding">
     <ion-list>
+      <!-- Dashboard -->
       <ion-item class="flex justify-center items-center text-center" (click)="goTo('dashboard')">
-        <span class="text-gray-400 "><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"></path></svg></span>
-        <label class="w-full"
-        [ngClass]="{
-           'font-semibold': currentRoute == 'dashboard'
-        }">Dashboard</label>
+        <ion-icon name="grid-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'dashboard', 'text-gray-400': currentRoute != 'dashboard' }"></ion-icon>
+        <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'dashboard' }">Dashboard</label>
       </ion-item>
-            <ion-item class="flex justify-center items-center text-center" (click)="goTo('customer')">
 
-        <label class="w-full"
-        [ngClass]="{
-           'font-semibold': currentRoute == 'customer'
-        }">clientes</label>
+      <!-- Clientes -->
+      <ion-item class="flex justify-center items-center text-center" (click)="goTo('customer')">
+        <ion-icon name="person-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'customer', 'text-gray-400': currentRoute != 'customer' }"></ion-icon>
+        <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'customer' }">Clientes</label>
       </ion-item>
-            <ion-item class="flex justify-center items-center text-center" (click)="goTo('usuarios')">
 
-        <label class="w-full"
-        [ngClass]="{
-           'font-semibold': currentRoute == 'usuarios'
-        }">Usuarios</label>
+      <!-- Usuarios -->
+      <ion-item class="flex justify-center items-center text-center" (click)="goTo('usuarios')">
+        <ion-icon name="people-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'usuarios', 'text-gray-400': currentRoute != 'usuarios' }"></ion-icon>
+        <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'usuarios' }">Usuarios</label>
       </ion-item>
-            <ion-item class="flex justify-center items-center text-center" (click)="goTo('delievery-status')">
 
-        <label class="w-full"
-        [ngClass]="{
-           'font-semibold': currentRoute == 'delievery-status'
-        }">Estados de entregas</label>
-      </ion-item>
-            <ion-item class="flex justify-center items-center text-center" (click)="goTo('payment-type')">
+      <!-- Estados de entregas -->
+<ion-item class="flex justify-center items-center text-center" (click)="goTo('delievery-status')">
+  <!-- Icono con color cambiado a negro cuando la ruta es 'delievery-status' -->
+  <ion-icon name="time-outline" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'delievery-status', 'text-gray-400': currentRoute != 'delievery-status' }">
+  </ion-icon>
+  
+  <!-- Texto con negrita y color cambiado cuando la ruta es 'delievery-status' -->
+  <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'delievery-status', 'text-black': currentRoute == 'delievery-status' }">
+    Estados de entregas
+  </label>
+</ion-item>
 
-        <label class="w-full"
-        [ngClass]="{
-           'font-semibold': currentRoute == 'payment-type'
-        }">Tipos de pago</label>
+
+      <!-- Tipos de pago -->
+      <ion-item class="flex justify-center items-center text-center" (click)="goTo('payment-type')">
+        <ion-icon name="card-outline" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'payment-type', 'text-gray-400': currentRoute != 'payment-type' }"></ion-icon>
+        <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'payment-type' }">Tipos de pago</label>
       </ion-item>
       
     </ion-list>

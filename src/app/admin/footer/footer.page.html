@@ -22,8 +22,13 @@
           <ion-icon name="list-circle-outline"></ion-icon>
           Ordenes
         </ion-tab-button>
+          <ion-tab-button 
+          (click)="navigateTo('/admin/customer')" 
+          [ngClass]="{'text-orange-500 font-bold': isActive('/admin/customer')}">
+          <ion-icon name="people-circle-outline"></ion-icon>
+          Clientes
+        </ion-tab-button>
         }
-
         
 
        

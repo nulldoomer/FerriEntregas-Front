@@ -61,8 +61,10 @@ throw new Error('Method not implemented.');
   currentPage: number = 1;
   itemsPerPage: number = 5;
   paginatedUsers: any[] = [];
+  userRole: string | null = null; // Variable para almacenar el rol
   totalPages: number | undefined;
   ngOnInit() {
+    this.userRole = localStorage.getItem('role'); // Obtener el rol del localStorage
     this.menuCtrl.enable(true, 'main-menu'); // Activa el menú al cargar la página
     this.loadcustomers();
     if (this.paginator) {

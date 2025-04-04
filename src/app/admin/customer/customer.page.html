@@ -1,4 +1,9 @@
-<app-menu></app-menu>
+@if (userRole == 'EMPLOYEE') {
+
+}@else {
+
+  <app-menu></app-menu>
+}
 
 <!-- Contenedor principal con el mismo ID en todas las páginas -->
 <div class="ion-page" id="main-content"> 
@@ -89,4 +94,12 @@
   
    
   </ion-content>
+  
+  @if (userRole == 'EMPLOYEE') {
+    <ion-footer>
+    
+      <app-footer></app-footer>
+    </ion-footer>
+  }
 </div>
+
