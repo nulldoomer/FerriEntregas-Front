@@ -19,6 +19,7 @@ import { CustomerFormPage } from './customer/customer-form/customer-form.page';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
 import { ReportesPage } from './reportes/reportes.page';
+import { redirectGuard } from '../guards/redirect.guard';
 
 const routes: Routes = [
 
@@ -28,7 +29,7 @@ const routes: Routes = [
       children: [
         { path: 'entrega-info/:id', component: EntregaInfoPage },
 
-        { path: 'inicio', component: InicioPage },
+        { path: 'inicio', component: InicioPage, canActivate: [redirectGuard] },
         { path: 'notifications', component: NotificationsPage },
         { path: 'ordenes', component: OrdenesPage },
         { path: 'ordenes-form', component: OrddenesFormPage },
