@@ -41,7 +41,14 @@ export class OrdenesService {
    }
    createCustomer(orden: OrdenesRequest): Observable<OrdenesResponse> {
      return this.http.post<OrdenesResponse>(`${environment.apiUrlBase}/deliveries`, orden).pipe(
-       tap(),
+       tap(
+          (response: OrdenesResponse) => {
+            if (response.success) {
+              this.toastService.showToast('Orden creada con éxito', 'success');
+            }
+          }
+
+       ),
        catchError(error => {
          this.toastService.showToast('Error al realizar el pago', 'error');
          throw error;
@@ -50,7 +57,13 @@ export class OrdenesService {
    }
    updateCustomer(orden: OrdenesRequest): Observable<OrdenesResponse> {
      return this.http.put<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${orden.id}`, orden).pipe(
-       tap(),
+       tap(
+         (response: OrdenesResponse) => {
+           if (response.success) {
+             this.toastService.showToast('Orden actualizada con éxito', 'success');
+           }
+         }
+       ),
        catchError(error => {
          this.toastService.showToast('Error al realizar el pago', 'error');
          throw error;
@@ -59,7 +72,13 @@ export class OrdenesService {
    }
    deleteCustomer(id: string): Observable<OrdenesResponse> {
      return this.http.delete<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${id}`).pipe(
-       tap(),
+       tap(
+         (response: OrdenesResponse) => {
+           if (response) {
+             this.toastService.showToast('Orden eliminada con éxito', 'success');
+           }
+         }
+       ),
        catchError(error => {
          this.toastService.showToast('Error al realizar el pago', 'error');
          throw error;

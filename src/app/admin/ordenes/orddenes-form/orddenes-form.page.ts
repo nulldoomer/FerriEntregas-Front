@@ -12,6 +12,7 @@ import { DelieveryService } from 'src/app/services/delievery.service';
 import { userService } from 'src/app/services/user.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/interfaces/customer.interface';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 
 @Component({
   selector: 'app-orddenes-form',
@@ -30,6 +31,7 @@ throw new Error('Method not implemented.');
 files: File[] = [];
   usersSelected: User | undefined
   photo: string | null = null;
+  evidence: string[] = [];
 
   async openFileOptions() {
     const image = await Camera.getPhoto({
@@ -70,12 +72,13 @@ files: File[] = [];
   titulo: string = 'Agregar Usuario';
 
   constructor(private modalController: ModalController, private fb: FormBuilder, private ordenesService: OrdenesService,
-    private route: ActivatedRoute,  private navController: NavController, private deliveryStatus: DelieveryService, private userService: userService, private customerService: CustomerService,
+    private route: ActivatedRoute,  private navController: NavController, private deliveryStatus: DelieveryService, private userService: userService, private customerService: CustomerService, private imagenesService: ImagenesService
   ) {
     this.ordenesForm = this.fb.group({
       numeration: ['', Validators.required],
       OrdenesNumber: ['', Validators.required],
-      deliveryDate: ['', [Validators.required, ]],
+      deliveryDate
+: ['', [Validators.required, ]],
       estimateHourInit: ['', Validators.required],
       estimateHourEnd: ['', Validators.required],
       deliveryStatusName: ['', Validators.required],
@@ -95,14 +98,7 @@ files: File[] = [];
   seleccionaOtroCliente() {
     this.ordenesForm.get('customer')?.setValue('');
   }
-  onFileChange(event: any): void {
-    const fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      for (let i = 0; i < fileList.length; i++) {
-        this.files.push(fileList[i]);
-      }
-    }
-  }
+
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || '';
@@ -152,6 +148,9 @@ files: File[] = [];
             ...response.result,
             userId: response.result.user?.id ?? '',
             customerId: response.result.customer?.id ?? '',
+            deliveryDate
+: response.result.deliveryDate
+,
             invoiceNumber: response.result.invoiceNumber ?? '', // Ensure invoiceNumber is a string
             deliveryStatus: response.result.deliveryStatus?.name ?? '', // Ensure deliveryStatus is a string
             paymentType: response.result.paymentType?.name ?? '', // Convert paymentType to string
@@ -161,7 +160,9 @@ files: File[] = [];
     
           this.ordenesForm.patchValue({
             numeration: this.orden.numeration,
-            DeliveryDate: this.orden.deliveryDate,
+            deliveryDate
+: this.orden.deliveryDate
+,
             estimateHourInit: this.orden.estimateHourInit, 
             estimateHourEnd: this.orden.estimateHourEnd,
             paymentType: this.orden.paymentType,
@@ -227,6 +228,9 @@ files: File[] = [];
           ...response.result,
             userId: response.result.user?.id ?? '',
             customerId: response.result.customer?.id ?? '',
+            deliveryDate
+: response.result.deliveryDate
+,
             invoiceNumber: response.result.invoiceNumber ?? '', // Ensure invoiceNumber is a string
             deliveryStatus: response.result.deliveryStatus?.name ?? '', // Ensure deliveryStatus is a string
             paymentType: response.result.paymentType?.name ?? '', // Convert paymentType to string
@@ -240,7 +244,9 @@ files: File[] = [];
         this.ordenesForm.patchValue({
           numeration: this.orden.numeration,
           OrdenesNumber: this.orden.invoiceNumber,
-          DeliveryDate: this.orden.deliveryDate,
+          deliveryDate
+: this.orden.deliveryDate
+,
           estimateHourInit: this.orden.estimateHourInit, 
           estimateHourEnd: this.orden.estimateHourEnd,
           paymentType: this.orden.paymentType,
@@ -263,7 +269,7 @@ files: File[] = [];
   delete(){
     this.ordenesService.deleteCustomer(this.id).subscribe({
       next: (response) => {
-        this.navController.navigateForward('/admin/user')
+        this.navController.navigateForward('/admin/ordenes');
       },
       error: (error) => {
         console.error('Error al eliminar la orden:', error);
@@ -271,13 +277,40 @@ files: File[] = [];
     });
   }
 
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const archivos = Array.from(input.files);
+      this.files.push(...archivos);
+
+      // Enviar uno por uno (puedes hacer que envíe todos juntos si tu backend lo permite)
+      for (const archivo of archivos) {
+        this.imagenesService.enviarImagen(archivo)
+          .subscribe({
+            next: res => {console.log('Subida exitosa:', res)
+              this.evidence.push(res.result[0]); // Agregar la URL a la lista de evidencias
+            },
+            
+            error: err => console.error('Error al subir:', err)
+          });
+      }
+
+      // Limpiar input si deseas permitir volver a seleccionar los mismos archivos
+      input.value = '';
+    }
+  }
+
   submit() {
     // console.log(this.ordenesForm.value);
     if (this.ordenesForm.valid) {
+      
       const orden: OrdenesRequest = {
+        evidence: this.evidence,
         numeration: this.ordenesForm.value.numeration,
         invoiceNumber: this.ordenesForm.value.OrdenesNumber,
-        deliveryDate: this.ordenesForm.value.deliveryDate,
+        deliveryDate
+: this.ordenesForm.value.deliveryDate
+,
         estimateHourInit: this.ordenesForm.value.estimateHourInit,
         estimateHourEnd: this.ordenesForm.value.estimateHourEnd,
         paymentType: this.ordenesForm.value.paymentType,
@@ -289,9 +322,11 @@ files: File[] = [];
         comments: this.ordenesForm.value.comments,
         deliveryStatus: this.ordenesForm.value.deliveryStatusName,
         observations: this.ordenesForm.value.observations,
-        evidence: []
       };
       if (this.id) {
+        if (orden) {
+          orden.id = this.id;
+        }
         console.log('actualizar');
         console.log(orden);
         this.ordenesService.updateCustomer(orden).subscribe({

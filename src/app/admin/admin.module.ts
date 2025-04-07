@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { MenuPage } from './menu/menu.page';
 import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
+import { ReportesPage } from './reportes/reportes.page';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
     DashboardPage,
     MenuPage,
     OrddenesFormPage,
+    ReportesPage,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

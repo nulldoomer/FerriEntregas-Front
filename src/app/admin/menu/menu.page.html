@@ -13,6 +13,11 @@
         <ion-icon name="grid-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'dashboard', 'text-gray-400': currentRoute != 'dashboard' }"></ion-icon>
         <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'dashboard' }">Dashboard</label>
       </ion-item>
+      <!-- reportes -->
+      <ion-item class="flex justify-center items-center text-center" (click)="goTo('reportes')">
+        <ion-icon name="document-attach-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'reportes', 'text-gray-400': currentRoute != 'reportes' }"></ion-icon>
+        <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'reportes' }">Reportes</label>
+      </ion-item>
 
       <!-- Clientes -->
       <ion-item class="flex justify-center items-center text-center" (click)="goTo('customer')">

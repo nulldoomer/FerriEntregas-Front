@@ -18,6 +18,7 @@ import { CustomerPage } from './customer/customer.page';
 import { CustomerFormPage } from './customer/customer-form/customer-form.page';
 import { DashboardPage } from './dashboard/dashboard.page';
 import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
+import { ReportesPage } from './reportes/reportes.page';
 
 const routes: Routes = [
 
@@ -48,6 +49,7 @@ const routes: Routes = [
         {path: 'customer-form/:id', component: CustomerFormPage},
         {path: 'customer-form', component: CustomerFormPage},
         {path: 'dashboard', component: DashboardPage},
+        {path: 'reportes', component: ReportesPage},
 
         { path: '', redirectTo: 'admin/inicio', pathMatch: 'full' } // Redirección por defecto
       ]
@@ -56,6 +58,8 @@ const routes: Routes = [
     path: 'date-time-modal',
     loadChildren: () => import('./customer/date-time-modal/date-time-modal.module').then( m => m.DateTimeModalPageModule)
   },
+  
+
 
 
 
