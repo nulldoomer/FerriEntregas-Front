@@ -23,37 +23,58 @@
     <ion-card-header>
       <ion-card-title>Entrega Seleccionada</ion-card-title>
     </ion-card-header>
-    <ion-card-content class="flex items-center gap-4">
-      <div>
-        <p><strong>{{ selectedMarker.description
- }}</strong></p>
+    <ion-card-content class="flex flex-col md:flex-row items-start md:items-center gap-4">
+      <div class="text-left">
+        <p class="text-lg font-semibold">{{ selectedMarker.description }}</p>
         <p><strong>Ubicación:</strong> {{ selectedMarker.position.lat }}, {{ selectedMarker.position.lng }}</p>
       </div>
     
-      <button class="bg-black p-4 rounded-full text-white h-fit" (click)="openInGoogleMaps()">
-        Ver en Google Maps
-      </button>
-      <button class="bg-black p-4 rounded-full text-white h-fit" (click)="openInfoEntrega(selectedMarker.id)">
-        Ver info de la Entrega
-      </button>
+      <div class="flex gap-3 mt-2 md:mt-0">
+        <button
+          class="flex items-center gap-2 bg-black px-4 py-2 rounded-full text-white hover:bg-gray-800 transition"
+          (click)="openInGoogleMaps()">
+          <ion-icon name="map-outline"></ion-icon>
+          <span>Google Maps</span>
+        </button>
+    
+        <button
+          class="flex items-center gap-2 bg-black px-4 py-2 rounded-full text-white hover:bg-gray-800 transition"
+          (click)="openInfoEntrega(selectedMarker.id)">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>Ver Entrega</span>
+        </button>
+      </div>
     </ion-card-content>
+    
   </ion-card>
   
   <ion-card *ngIf="nearestLocation" class="m-4 p-2 shadow-lg">
     <ion-card-header>
       <ion-card-title>Ubicación más cercana</ion-card-title>
     </ion-card-header>
-    <ion-card-content class="flex items-center gap-4">
+    <ion-card-content class="flex flex-col md:flex-row items-start md:items-center gap-4">
       <div>
         <p><strong>{{ nearestLocation.name }}</strong></p>
         <p>{{ nearestLocation.description }}</p>
         <p><strong>Ubicación:</strong> {{ nearestLocation.lat }}, {{ nearestLocation.lng }}</p>
       </div>
+      <div class="flex gap-3 mt-2 md:mt-0">
+        <button
+          class="flex items-center gap-2 bg-black px-4 py-2 rounded-full text-white hover:bg-gray-800 transition"
+          (click)="openInGoogleMapsNear(nearestLocation.lat, nearestLocation.lng)">
+          <ion-icon name="map-outline"></ion-icon>
+          <span>Google Maps</span>
+        </button>
     
-      <button class="bg-black p-4 rounded-full text-white h-fit" (click)="openInGoogleMapsNear(nearestLocation.lat, nearestLocation.lng)">
-        Ver en Google Maps
-      </button>
+        <button
+          class="flex items-center gap-2 bg-black px-4 py-2 rounded-full text-white hover:bg-gray-800 transition"
+          (click)="openInfoEntrega(nearestLocation.id)">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>Ver Entrega</span>
+        </button>
+      </div>
     </ion-card-content>
+    
   </ion-card>
 </ion-content>
 <app-footer></app-footer>
