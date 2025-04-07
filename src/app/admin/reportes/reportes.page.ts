@@ -23,24 +23,40 @@ export class ReportesPage implements OnInit {
   abrir(){
     this.menuCtrl.open('main-menu')
   }
-  ngOnInit() {
-    // Aquí solo asignas la ruta una vez
-    this.currentRoute = this.router.url.split('/')[2] + '2';
-    console.log('Ruta actual:', this.currentRoute);
-
-    // Habilitas el menú
-    this.menuCtrl.enable(true, 'main-menu');
-  }
-  // ionViewWillEnter() {
-  //   console.log('Reasignando menú a Dashboard...');
-  //   this.menuCtrl.enable(true, 'main-menu');  // Asegura que el menú se habilite
-  //   this.menuCtrl.open(); // Abre el menú en esta página
-  // }
+  fechaInicio: string = '';
+  fechaFin: string = '';
   
-  // ionViewWillLeave() {
-  //   console.log('Deshabilitando y cerrando el menú en Delivery Status...');
-  //   this.menuCtrl.enable(false, 'main-menu');  // Deshabilita el menú en esta página
-  //   this.menuCtrl.close(); // Cierra el menú si está abierto
-  // }
+  ngOnInit() {
+    const hoy = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
+    this.fechaInicio = hoy;
+    this.fechaFin = hoy;
+  }
+  
+
+generarReporte() {
+  if (this.fechaInicio && this.fechaFin) {
+    const formData = new FormData();
+    formData.append('fechaInicio', this.fechaInicio);
+    formData.append('fechaFin', this.fechaFin);
+
+    fetch('http://localhost:8081/Proyecto/Back/controllers/reportes.controller.php?op=reporteEntregasPorFechas', {
+      method: 'POST',
+      body: formData
+    })
+    .then(async response => {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `Reporte_Entregas_${new Date().toISOString()}.xlsx`;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error al generar reporte:', error));
+  } else {
+    alert('Selecciona ambas fechas para generar el reporte.');
+  }
+}
+
   
 }
