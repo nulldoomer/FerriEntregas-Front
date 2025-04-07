@@ -4,6 +4,7 @@ import { IonModal, NavController } from '@ionic/angular';
 import { OrdenesService } from 'src/app/services/ordenes.service';
 import { OcrService } from 'src/app/services/ors.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 
 @Component({
   selector: 'app-entrega-info',
@@ -19,13 +20,16 @@ export class EntregaInfoPage implements OnInit {
   rutaA: string = '';  // Latitud
   rutaB: string = '';  // Longitud
   googleMapsUrl: SafeResourceUrl | null = null; // Inicialmente nulo
+  files: File[] = [];
+  evidence: string[] = [];
 
   constructor(
     private navController: NavController,
     private ocrService: OcrService,
     private ordenesService: OrdenesService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private imagenesService: ImagenesService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +37,28 @@ export class EntregaInfoPage implements OnInit {
     console.log(this.id)
     this.getOrden(this.id);
   }
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const archivos = Array.from(input.files);
+      this.files.push(...archivos);
 
+      // Enviar uno por uno (puedes hacer que envíe todos juntos si tu backend lo permite)
+      for (const archivo of archivos) {
+        this.imagenesService.enviarImagen(archivo)
+          .subscribe({
+            next: res => {console.log('Subida exitosa:', res)
+              this.evidence.push(res.result[0]); // Agregar la URL a la lista de evidencias
+            },
+            
+            error: err => console.error('Error al subir:', err)
+          });
+      }
+
+      // Limpiar input si deseas permitir volver a seleccionar los mismos archivos
+      input.value = '';
+    }
+  }
   getOrden(id: string) {
     this.ordenesService.getCustomerById(id).subscribe(response => {
       this.orden = response.result;
