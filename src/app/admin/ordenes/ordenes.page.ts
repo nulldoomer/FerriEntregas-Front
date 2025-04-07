@@ -22,6 +22,8 @@ export class OrdenesPage implements OnInit {
   }
   
     constructor(    private navController: NavController, private customerService: CustomerService, private menuCtrl: MenuController, private ordenesService: OrdenesService   ) { }
+  userRole: string | null = null; // Variable para almacenar el rol
+
     ordenes: OrdenesResult[] = [];
     customers: Customer[] = [];
     displayedColumns: string[] = ['estado', 'conductor', 'pago',  'acciones'];
@@ -77,6 +79,7 @@ export class OrdenesPage implements OnInit {
     paginatedUsers: any[] = [];
     totalPages: number | undefined;
     ngOnInit() {
+    this.userRole = localStorage.getItem('role'); // Obtener el rol del localStorage
       this.menuCtrl.enable(true, 'main-menu'); // Activa el menú al cargar la página
       // this.loadcustomers();
       this.loadOrdenes();

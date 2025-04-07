@@ -19,6 +19,11 @@
         <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'reportes' }">Reportes</label>
       </ion-item>
 
+      <!-- Ordnenes -->
+      <ion-item class="flex justify-center items-center text-center" (click)="goTo('ordenes')">
+        <ion-icon name="newspaper-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'ordenes', 'text-gray-400': currentRoute != 'ordenes' }"></ion-icon>
+        <label class="w-full" [ngClass]="{ 'font-semibold': currentRoute == 'ordenes' }">Ordenenes</label>
+      </ion-item>
       <!-- Clientes -->
       <ion-item class="flex justify-center items-center text-center" (click)="goTo('customer')">
         <ion-icon name="person-outline" slot="start" class="text-gray-400 font-semibold" slot="start" class="text-gray-400 font-semibold"  [ngClass]="{ 'text-black': currentRoute == 'customer', 'text-gray-400': currentRoute != 'customer' }"></ion-icon>
