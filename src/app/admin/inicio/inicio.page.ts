@@ -15,18 +15,17 @@ export class InicioPage implements OnInit, AfterViewInit {
 eliminar(id: string) {
   this.navController.navigateForward(`admin/entrega-info/${id}`);
 }
+editar(id: string) {
+  this.navController.navigateForward(`admin/ordenes/${id}`);
+}
 deletePokemon: any;
-showInfo(_t85: any) {
-throw new Error('Method not implemented.');
-}
-edit(_t85: any) {
-throw new Error('Method not implemented.');
-}
+
   pokemons: any[] = [];
   ordenes: any[] = [];
   offset = 0;
   limit = 10;
   loading = false;
+  rol: string = '';
   private subscriptions: Subscription = new Subscription(); 
   @ViewChild('loadTrigger', { static: false }) loadTrigger!: ElementRef;
   constructor(
@@ -35,8 +34,10 @@ throw new Error('Method not implemented.');
     private ordnesService: OrdenesService,
   ) {}
   ngOnInit() {
-    // this.loadPokemons();
+    this.rol = localStorage.getItem('role') || '';
+    console.log(this.rol);
     this.loadOrdenes();
+
   }
   ionViewWillLeave() {
     this.subscriptions.unsubscribe(); 
@@ -79,13 +80,17 @@ throw new Error('Method not implemented.');
 
       this.ordnesService.getCustomers(this.limit, this.offset).subscribe((response) => {
         console.log(response)
+        let total = response.result.totalElements;
         response.result.content.forEach((orden: any, index: number) => {
           const id = this.offset + index + 1;
-          this.ordenes.push({
-            numeration: orden.numeration,
-            customer: orden.customer.firstNames + ' ' + orden.customer.lastNames,
-            id: orden.id
-          });
+          if(this.ordenes.length <= total){
+
+            this.ordenes.push({
+              numeration: orden.numeration,
+              customer: orden.customer.firstNames + ' ' + orden.customer.lastNames,
+              id: orden.id
+            });
+          }
         });
   
         this.offset += this.limit;
@@ -99,7 +104,6 @@ throw new Error('Method not implemented.');
   goToNotificationsPage() {
     this.navController.navigateForward('admin/notifications');
   }
-  
   goroote(route: string) {
     this.navController.navigateForward(route);
   }

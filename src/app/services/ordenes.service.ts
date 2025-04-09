@@ -30,6 +30,27 @@ export class OrdenesService {
        })
      );
    }
+   getEntregasDriver(page: number, pageSize: number, filter: string = ''):Observable<OrdenesListResponse> {
+     const offset = (page - 1) * pageSize;
+     let params = new HttpParams()
+       .set('offset', offset.toString())
+       .set('limit', pageSize.toString())
+       .set('deliveryStatus', 'Pendiente');
+
+ 
+     if (filter) {
+       params = params.set('search', filter);
+     }
+ 
+     return this.http.get<OrdenesListResponse>(`${environment.apiUrlBase}/deliveries/delivery-status`, { params }).pipe(
+       tap(),
+       catchError(error => {
+         this.toastService.showToast('Error al realizar el pago', 'error');
+         throw error;
+       })
+     );
+   }
+
    getCustomerById(id: string): Observable<OrdenesResponse> {
      return this.http.get<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${id}`).pipe(
        tap(),

@@ -102,7 +102,11 @@ files: File[] = [];
     this.ordenesForm.get('customer')?.setValue('');
   }
 
-
+  ngAfterViewInit(){
+    this.loadStatus();
+    this.loadUsers();
+    this.loadCustomers();
+  }
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || '';
     console.log(this.id)

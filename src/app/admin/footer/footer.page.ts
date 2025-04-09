@@ -15,6 +15,12 @@ export class FooterPage implements OnInit {
 
   ngOnInit() {
     this.getCurrentTab();
+    this.getRole();
+    // window.location.reload();
+
+  }
+  getRole() {
+    this.rol = localStorage.getItem('role') || '';
   }
 
   getCurrentTab() {
