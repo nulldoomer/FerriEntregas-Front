@@ -322,7 +322,7 @@
   </div> -->
   @if ((orden?.evidence ?? []).length > 0) {
 
-    <img [src]="orden?.evidence?.[0] ?? ''" alt="eviendecia">
+    <img [src]="orden?.evidence?.[0]?.url ?? ''" alt="eviendecia">
   }
   <!-- PARA WEB -->
   <div class="">
@@ -332,7 +332,7 @@
         <i class="fa fa-folder-open fa-3x text-[var(--primary)]"></i>
         <span class="block text-gray-400 text-sm">Arrastra aquí o haz clic para subir</span>
       </div>
-      <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" (change)="onFileChange($event)" multiple>
+      <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" (change)="onFileChange($event)" >
     </div>
 
     <!-- Lista de archivos cargados -->

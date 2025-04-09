@@ -99,6 +99,7 @@ throw new Error('Method not implemented.');
   goToNotificationsPage() {
     this.navController.navigateForward('admin/notifications');
   }
+  
   goroote(route: string) {
     this.navController.navigateForward(route);
   }

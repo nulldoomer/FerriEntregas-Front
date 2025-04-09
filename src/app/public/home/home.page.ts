@@ -50,7 +50,10 @@ export class HomePage {
   get fControlsRegister() {
     return this.registerForm.controls;
   }
-
+  ionViewWillEnter() {
+    console.log('HomePage is about to be displayed. Clearing localStorage...');
+    localStorage.clear();
+  }
   // Método para manejar el submit
   submit() {
     if (this.selectedSegment === 'login' && this.loginForm.valid) {

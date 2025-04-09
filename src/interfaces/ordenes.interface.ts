@@ -11,7 +11,7 @@ export interface OrdenesRequest {
   paymentType: string;
   credit: number;
   total: number;
-  evidence: string[];
+  evidence: {id:string, url:string}[];
   userId: string;
   customerId: string;
   deliveryData: string;
@@ -62,7 +62,7 @@ export interface OrdenesResult {
   paymentType: StatusInfo;
   credit: number;
   total: number;
-  evidence?: string[];
+  evidence?: {id:string, url:string}[];
   user: User;
   customer: CustomerInfo;
   deliveryData: string;

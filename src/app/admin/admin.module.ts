@@ -32,6 +32,7 @@ import { DashboardPage } from './dashboard/dashboard.page';
 import { MenuPage } from './menu/menu.page';
 import { OrddenesFormPage } from './ordenes/orddenes-form/orddenes-form.page';
 import { ReportesPage } from './reportes/reportes.page';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ReportesPage } from './reportes/reportes.page';
     MenuPage,
     OrddenesFormPage,
     ReportesPage,
+    // NgxChartsModule,
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -70,8 +72,11 @@ import { ReportesPage } from './reportes/reportes.page';
         GoogleMapsModule,
         MatPaginatorModule,
         MatTableModule,
+        
+        // NgxChartsModule,
     FormsModule,
     ReactiveFormsModule,
+    // NgxChartsModule
 
 
   ],

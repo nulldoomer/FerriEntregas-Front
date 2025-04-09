@@ -1,6 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import {
+  Chart,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +40,29 @@ export class DashboardPage implements OnInit {
     // Habilitas el menú
     this.menuCtrl.enable(true, 'main-menu');
   }
+  // ngAfterViewInit(): void {
+  //   const chart = new Chart('chartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+  //       datasets: [
+  //         {
+  //           label: 'Ventas',
+  //           data: [120, 150, 180, 90],
+  //           backgroundColor: '#36A2EB',
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       responsive: true,
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
   // ionViewWillEnter() {
   //   console.log('Reasignando menú a Dashboard...');
   //   this.menuCtrl.enable(true, 'main-menu');  // Asegura que el menú se habilite

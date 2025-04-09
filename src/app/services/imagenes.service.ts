@@ -29,4 +29,15 @@ export class ImagenesService {
       })
     );
   }
+  detectarTexto(archivo: File,): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', archivo, archivo.name); 
+    return this.http.post(`http://127.0.0.1:8000/extract_text`, formData).pipe(
+      tap(() => this.toastService.showToast('Imagen detectaada con exito', 'success')),
+      catchError(error => {
+        this.toastService.showToast('Error al subir la imagen', 'error');
+        return throwError(() => error);
+      })
+    );
+  }
 }

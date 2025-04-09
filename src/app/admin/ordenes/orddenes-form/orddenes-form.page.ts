@@ -13,6 +13,7 @@ import { userService } from 'src/app/services/user.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/interfaces/customer.interface';
 import { ImagenesService } from 'src/app/services/imagenes.service';
+import { EvidenciasService } from 'src/app/services/evidencias.service';
 
 @Component({
   selector: 'app-orddenes-form',
@@ -31,7 +32,9 @@ throw new Error('Method not implemented.');
 files: File[] = [];
   usersSelected: User | undefined
   photo: string | null = null;
-  evidence: string[] = [];
+  url: string[] = [];
+  evidenciasRequest: {deliveryId: string, url: string[]} = {deliveryId: '', url: []};
+  evidence: {id:string, url:string}[] = [];
 
   async openFileOptions() {
     const image = await Camera.getPhoto({
@@ -72,7 +75,7 @@ files: File[] = [];
   titulo: string = 'Agregar Usuario';
 
   constructor(private modalController: ModalController, private fb: FormBuilder, private ordenesService: OrdenesService,
-    private route: ActivatedRoute,  private navController: NavController, private deliveryStatus: DelieveryService, private userService: userService, private customerService: CustomerService, private imagenesService: ImagenesService
+    private route: ActivatedRoute,  private navController: NavController, private deliveryStatus: DelieveryService, private userService: userService, private customerService: CustomerService, private imagenesService: ImagenesService, private evidenciasService: EvidenciasService
   ) {
     this.ordenesForm = this.fb.group({
       numeration: ['', Validators.required],
@@ -288,11 +291,23 @@ files: File[] = [];
         this.imagenesService.enviarImagen(archivo)
           .subscribe({
             next: res => {console.log('Subida exitosa:', res)
-              this.evidence.push(res.result[0]); // Agregar la URL a la lista de evidencias
+              // this.evidence.push(res.result[0]); // Agregar la URL a la lista de evidencias
+              this.url.push(res.result[0])
             },
             
             error: err => console.error('Error al subir:', err)
           });
+        this.imagenesService.detectarTexto(archivo).subscribe({
+          next: res => {console.log('Subida exitosa:', res)
+            this.ordenesForm.patchValue({
+              OrdenesNumber: res.numero_factura,
+              total: res.valor_total,
+            });
+            
+          },
+          
+          error: err => console.error('Error al subir:', err)
+        })
       }
 
       // Limpiar input si deseas permitir volver a seleccionar los mismos archivos
@@ -343,6 +358,22 @@ files: File[] = [];
         console.log(orden);
         this.ordenesService.createCustomer(orden).subscribe({
           next: (response) => {
+            if (this.evidenciasRequest) {
+              this.evidenciasRequest.deliveryId = response.result.id ?? '';
+              this.evidenciasRequest.url = this.url
+              this.evidenciasService.createEvidencia(this.evidenciasRequest).subscribe(
+
+                {next: (response) => {
+                  console.log(response);
+
+                },
+                error: (error) => {
+                  console.error('Error al crear el cliente:', error);
+                }}
+              )
+  
+              
+            }
             this.navController.navigateForward('/admin/ordenes');
           },
           error: (error) => {
