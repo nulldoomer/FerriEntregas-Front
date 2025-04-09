@@ -114,14 +114,7 @@ files: File[] = [];
     this.loadUsers();
     this.loadCustomers();
     
-    if (this.id) {
-      this.titulo = 'Editar estado de entrega';
-      console.log(this.id)
-      this.getOrden();
-    }else{
-      this.loadNew();
-    
-    }
+   
   }
   selectUser(user: User) {
     this.usersSelected = user;
@@ -185,6 +178,14 @@ files: File[] = [];
     this.deliveryStatus.getDelieveryIntents().subscribe({
       next: (response) => {
         this.deliveryStatusNames = response.result;
+        if (this.id) {
+          this.titulo = 'Editar estado de entrega';
+          console.log(this.id)
+          this.getOrden();
+        }else{
+          this.loadNew();
+        
+        }
       },
       error: (error) => {
         console.error('Error al obtener la orden:', error);
@@ -243,6 +244,7 @@ files: File[] = [];
             paymentType: response.result.paymentType?.name ?? '', // Convert paymentType to string
             evidence: response.result.evidence ?? [] // Ensure evidence is always an array
         };
+        console.log(this.orden.deliveryStatus)
   
         // Validar si existen user y customer antes de acceder a id
         this.usersSelected = this.users.find(user => user.id === this.orden?.userId) ?? undefined;

@@ -57,4 +57,16 @@
       
     </ion-list>
   </ion-content>
+  <ion-footer class="bg-white shadow-md">
+    <div class="flex items-center justify-center py-4">
+      <button 
+        (click)="goToPublic('public/home')" 
+        class="flex items-center space-x-2 bg-red-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-red-600 transition duration-300"
+        aria-label="Cerrar sesión"
+      >
+        <ion-icon name="log-out-outline" class="text-white text-3xl"></ion-icon>
+        <span class="text-lg font-semibold">Cerrar sesión</span>
+      </button>
+    </div>
+  </ion-footer>
 </ion-menu>

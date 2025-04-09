@@ -33,6 +33,17 @@ export class MenuPage implements OnInit {
       }, 500); // Ajusta el tiempo según lo necesites (2000 ms = 2 segundos)
     });
   }
+  goToPublic(route: string) {
+    // Navegar a la ruta y habilitar el menú
+    this.router.navigateByUrl('/public/home', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`/public/${route}`]);
+  
+      // Recargar la página después de un retraso de 2 segundos (2000 ms)
+      setTimeout(() => {
+        location.reload();
+      }, 500); // Ajusta el tiempo según lo necesites (2000 ms = 2 segundos)
+    });
+  }
   
   
 }
