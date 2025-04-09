@@ -22,6 +22,7 @@ export class EntregaInfoPage implements OnInit {
   googleMapsUrl: SafeResourceUrl | null = null; // Inicialmente nulo
   files: File[] = [];
   evidence: string[] = [];
+  evidenciaImagen: string = '';
 
   constructor(
     private navController: NavController,
@@ -62,6 +63,7 @@ export class EntregaInfoPage implements OnInit {
   getOrden(id: string) {
     this.ordenesService.getCustomerById(id).subscribe(response => {
       this.orden = response.result;
+      this.evidenciaImagen = 'si hay evidencia';
         console.log(response.result);
       // Aseguramos que los valores existen antes de usarlos
       if (response.result.customer.addressMaps) {

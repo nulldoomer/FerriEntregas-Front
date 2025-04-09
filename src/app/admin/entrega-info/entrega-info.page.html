@@ -49,9 +49,12 @@
       </div>
       
     <!-- Imagen de la factura -->
-    <div class="text-center">
-      <img *ngIf="orden.evidence && orden.evidence.length > 0" [src]="orden.evidence[0]?.url" alt="Factura" class="w-full max-w-xs mx-auto rounded-xl shadow-md">
-    </div>
+     @if (evidenciaImagen === 'si hay evidencia') {
+
+       <div class="text-center">
+         <img  [src]="orden.evidence[0]?.url" alt="Factura" class="w-full max-w-xs mx-auto rounded-xl shadow-md">
+       </div>
+     }
 
 
     <ion-button (click)="openFileInput()">Seleccionar Imagen</ion-button>
