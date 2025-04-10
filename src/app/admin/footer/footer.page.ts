@@ -19,6 +19,11 @@ export class FooterPage implements OnInit {
     // window.location.reload();
 
   }
+  ngAfterViewInit() {
+    this.getCurrentTab();
+    this.getRole();
+
+  }
   getRole() {
     this.rol = localStorage.getItem('role') || '';
   }

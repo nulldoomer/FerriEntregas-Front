@@ -16,7 +16,7 @@ eliminar(id: string) {
   this.navController.navigateForward(`admin/entrega-info/${id}`);
 }
 editar(id: string) {
-  this.navController.navigateForward(`admin/ordenes/${id}`);
+  this.navController.navigateForward(`admin/ordenes-form/${id}`);
 }
 deletePokemon: any;
 

@@ -21,6 +21,7 @@ export class MenuPage implements OnInit {
     console.log('Ruta actual:', this.currentRoute);
     this.currentRoute2 = this.router.url.split('/')[2] + '2';
   }
+  
 
   goTo(route: string) {
     // Navegar a la ruta y habilitar el menú

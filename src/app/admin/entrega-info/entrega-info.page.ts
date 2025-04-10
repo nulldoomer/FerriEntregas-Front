@@ -5,6 +5,8 @@ import { OrdenesService } from 'src/app/services/ordenes.service';
 import { OcrService } from 'src/app/services/ors.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ImagenesService } from 'src/app/services/imagenes.service';
+import { evideceRequest, Evidencia, EvidenciasResponse } from 'src/interfaces/evidencias.interface';
+import { EvidenciasService } from 'src/app/services/evidencias.service';
 
 @Component({
   selector: 'app-entrega-info',
@@ -22,7 +24,28 @@ export class EntregaInfoPage implements OnInit {
   googleMapsUrl: SafeResourceUrl | null = null; // Inicialmente nulo
   files: File[] = [];
   evidence: string[] = [];
+  evidenceUpdate: string[] = [];
+  evidenecesRequest: evideceRequest | undefined;
   evidenciaImagen: string = '';
+  
+private initialEvidenceUrls: string[] = []; // Aquí guardarás los URLs originales
+imagenActual: number = 0;
+
+anteriorImagen() {
+  if (this.imagenActual > 0) {
+    this.imagenActual--;
+  } else {
+    this.imagenActual = this.evidence.length - 1; // Vuelve al final
+  }
+}
+
+siguienteImagen() {
+  if (this.imagenActual < this.evidence.length - 1) {
+    this.imagenActual++;
+  } else {
+    this.imagenActual = 0; // Regresa al inicio
+  }
+}
 
   constructor(
     private navController: NavController,
@@ -30,7 +53,8 @@ export class EntregaInfoPage implements OnInit {
     private ordenesService: OrdenesService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private imagenesService: ImagenesService
+    private imagenesService: ImagenesService,
+    private evideciasService: EvidenciasService
   ) {}
 
   ngOnInit(): void {
@@ -44,12 +68,15 @@ export class EntregaInfoPage implements OnInit {
       const archivos = Array.from(input.files);
       this.files.push(...archivos);
 
-      // Enviar uno por uno (puedes hacer que envíe todos juntos si tu backend lo permite)
       for (const archivo of archivos) {
         this.imagenesService.enviarImagen(archivo)
           .subscribe({
             next: res => {console.log('Subida exitosa:', res)
-              this.evidence.push(res.result[0]); // Agregar la URL a la lista de evidencias
+              this.evidenceUpdate.push(res.result[0]); 
+              this.evidenecesRequest = {
+                deliveryId: this.id,
+                url: this.evidenceUpdate
+              };
             },
             
             error: err => console.error('Error al subir:', err)
@@ -64,27 +91,40 @@ export class EntregaInfoPage implements OnInit {
     this.ordenesService.getCustomerById(id).subscribe(response => {
       this.orden = response.result;
       this.evidenciaImagen = 'si hay evidencia';
-        console.log(response.result);
-      // Aseguramos que los valores existen antes de usarlos
+      console.log(response.result);
+      
+  
+      // Validar si existe evidence y es un array
+      if (response.result.evidence && Array.isArray(response.result.evidence)) {
+        const urls = response.result.evidence.map(e => e.url);
+        this.evidence.push(...urls);
+        this.initialEvidenceUrls = [...urls]; // Guardamos las evidencias originales
+      
+        // this.evidenecesRequest = {
+        //   deliveryId: this.id,
+        //   url: this.evidence
+        // };
+      }
+      
+  
       if (response.result.customer.addressMaps) {
-
         const addressParts = response.result.customer.addressMaps.split('=');
         console.log(response.result.customer.addressMaps);
-          this.rutaA = addressParts[1];
-          
-          this.rutaB = this.rutaA.split(',')[1];
-          this.rutaA = this.rutaA.split(',')[0];
-
-          console.log("Latitud:", this.rutaA);
-          console.log("Longitud:", this.rutaB);
-
-          // Solo establecer la URL cuando los datos estén listos
-          this.setGoogleMapsUrl();
+        this.rutaA = addressParts[1];
+        
+        this.rutaB = this.rutaA.split(',')[1];
+        this.rutaA = this.rutaA.split(',')[0];
+  
+        console.log("Latitud:", this.rutaA);
+        console.log("Longitud:", this.rutaB);
+  
+        this.setGoogleMapsUrl();
       } else {
         console.error("No se encontró addressMaps en la respuesta");
       }
     });
   }
+  
   // Latitud: 1.2365728
   setGoogleMapsUrl() {
     if (this.rutaA && this.rutaB) {
@@ -128,7 +168,33 @@ export class EntregaInfoPage implements OnInit {
     if (this.modal.isOpen) {
       this.modal.dismiss();
     }
+  
+    if (this.evidenecesRequest) {
+      const nuevasEvidencias = this.evidenecesRequest.url;
+  
+      // Comparar si son diferentes a las originales
+      const sonIguales = this.arraysIguales(this.initialEvidenceUrls, nuevasEvidencias);
+  
+      if (!sonIguales) {
+        this.evideciasService.createEvidencia(this.evidenecesRequest).subscribe(
+          (response: EvidenciasResponse) => {
+            console.log('Evidencia creada:', response);
+          }
+        );
+      } else {
+        console.log('No se crean nuevas evidencias porque no hubo cambios');
+      }
+    }
   }
+  private arraysIguales(arr1: string[], arr2: string[]): boolean {
+    if (arr1.length !== arr2.length) return false;
+  
+    const sorted1 = [...arr1].sort();
+    const sorted2 = [...arr2].sort();
+  
+    return sorted1.every((value, index) => value === sorted2[index]);
+  }
+    
 
   sendWhatsAppMessage() {
     const phoneNumber = '593983224738';  // Número al que se enviará el mensaje

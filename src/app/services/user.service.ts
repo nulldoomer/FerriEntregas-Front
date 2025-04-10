@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, tap } from 'rxjs';
 import { Customer, CustomerResult, CustomerResults } from 'src/interfaces/customer.interface';
 import { environment } from 'src/environments/environment';
-import { ApiUserResponse, ApiUserResponseOne, User } from 'src/interfaces/user.interface';
+import { ApiUserResponse, ApiUserResponseOne, User, UserPerfil } from 'src/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +58,15 @@ export class userService {
       })
     );
   }
+  getCurrentUser(): Observable<ApiUserResponseOne> {
+    return this.http.get<ApiUserResponseOne>(`${environment.apiUrlBase}/users/current-user`).pipe(
+      tap(),
+      catchError(error => {
+        this.toastService.showToast('Error al realizar el pago', 'error');
+        throw error;
+      })
+    );
+  }
   createuser(user: User): Observable<ApiUserResponseOne> {
     return this.http.post<ApiUserResponseOne>(`${environment.apiUrlBase}/users`, user).pipe(
       tap(() => this.toastService.showToast('Usuario ingresada con éxito', 'success')),
@@ -68,6 +77,15 @@ export class userService {
     );
   }
   updateuser(user: User): Observable<ApiUserResponseOne> {
+    return this.http.put<ApiUserResponseOne>(`${environment.apiUrlBase}/users/${user.id}`, user).pipe(
+      tap(() => this.toastService.showToast('Usuario actualizado con éxito', 'success')),
+      catchError(error => {
+        this.toastService.showToast('Error al realizar el pago', 'error');
+        throw error;
+      })
+    );
+  }
+  updateuserProfile(user: UserPerfil): Observable<ApiUserResponseOne> {
     return this.http.put<ApiUserResponseOne>(`${environment.apiUrlBase}/users/${user.id}`, user).pipe(
       tap(() => this.toastService.showToast('Usuario actualizado con éxito', 'success')),
       catchError(error => {

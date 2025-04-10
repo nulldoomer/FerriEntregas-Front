@@ -15,6 +15,13 @@ export interface Role {
     roles: Role[];
     role?: string
   }
+  export interface UserPerfil {
+    id: string;
+    firstNames: string;
+    lastNames: string;
+    email: string;
+    profileImage?: string | null;
+  }
   
   export interface Pageable {
     pageNumber: number;
