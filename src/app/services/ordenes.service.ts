@@ -95,9 +95,7 @@ export class OrdenesService {
      return this.http.delete<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${id}`).pipe(
        tap(
          (response: OrdenesResponse) => {
-           if (response) {
              this.toastService.showToast('Orden eliminada con éxito', 'success');
-           }
          }
        ),
        catchError(error => {

@@ -41,6 +41,17 @@
       </div>
       <div class="w-full overflow-x-auto px-4">
         <table mat-table [dataSource]="dataSource" matSort class="w-full !bg-white !text-gray-800">
+          <ng-container matColumnDef="img">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-white text-gray-800">Img</th>
+            <td mat-cell *matCellDef="let customer" class="bg-white text-gray-800">
+              @if (customer.profileImage) {
+                <img [src]="customer.profileImage" alt="Imagen de perfil" class="w-20  rounded-full" />
+              }@else {
+                <img src="https://storage.googleapis.com/ferrientregas/ferrientregas/23ca51f2-9075-458d-b266-5c9f5b329677.jpg" alt="Imagen de perfil" class="w-20  rounded-full" />
+
+              }
+            </td>
+          </ng-container>
           <ng-container matColumnDef="rol">
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-white text-gray-800">Rol</th>
             <td mat-cell *matCellDef="let customer" class="bg-white text-gray-800">

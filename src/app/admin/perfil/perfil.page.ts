@@ -67,6 +67,20 @@ export class PerfilPage implements OnInit {
           console.error('Error al subir la imagen:', error);
         }
       });
+    } else{
+      if (this.userForm.valid) {
+            const user: UserPerfil = {
+              id: this.user?.id || '',
+              firstNames: this.userForm.value.nombres,
+              lastNames: this.userForm.value.apellidos,
+              email: this.userForm.value.correo,
+              profileImage: this.profileImage,
+            };
+            console.log(user);
+            this.userService.updateuserProfile(user).subscribe((response) => {
+              console.log(response);
+            });
+      }
     }
 
    

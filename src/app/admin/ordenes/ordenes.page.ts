@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,89 +15,80 @@ import { OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface
   styleUrls: ['./ordenes.page.scss'],
   standalone: false
 })
-export class OrdenesPage implements OnInit {
+export class OrdenesPage implements OnInit, AfterViewInit {
 
-  filterUsers() {
-  throw new Error('Method not implemented.');
+  constructor(private navController: NavController, 
+              private customerService: CustomerService, 
+              private menuCtrl: MenuController, 
+              private ordenesService: OrdenesService) { }
+
+  userRole: string | null = null;
+  ordenes: OrdenesResult[] = [];
+  customers: Customer[] = [];
+  displayedColumns: string[] = ['estado', 'conductor', 'pago', 'acciones'];
+  dataSource = new MatTableDataSource<any>();
+  totalCustomer: number = 0;
+  pageSize: number = 5;
+  pageIndex: number = 0;
+  filterValue: string = '';
+  private subscriptions: Subscription = new Subscription();
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort) sort: MatSort | undefined;
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.loadOrdenes(this.pageIndex + 1, this.filterValue);
   }
-  
-    constructor(    private navController: NavController, private customerService: CustomerService, private menuCtrl: MenuController, private ordenesService: OrdenesService   ) { }
-  userRole: string | null = null; // Variable para almacenar el rol
 
-    ordenes: OrdenesResult[] = [];
-    customers: Customer[] = [];
-    displayedColumns: string[] = ['estado', 'conductor', 'pago',  'acciones'];
-    dataSource = new MatTableDataSource<any>();
-    totalCustomer: number = 0;
-    pageSize: number = 5;
-    pageIndex: number = 0;
-    filterValue: string = ''; 
-    private subscriptions: Subscription = new Subscription(); 
-    
-    @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-    @ViewChild(MatSort) sort: MatSort | undefined;
-    showInfo(pokemon: any) {
-      console.log('Información', pokemon);
-    }
-    onPageChange(event: PageEvent): void {
-      this.pageIndex = event.pageIndex;
-      // this.loadcustomers(this.pageIndex + 1, this.filterValue);
-      this.loadOrdenes(this.pageIndex + 1, this.filterValue);
-    }
-    info(id:string){
-      this.navController.navigateForward(`admin/ordenes-form/${id}`);
-    }
-    nuevo(){
-      this.navController.navigateForward('admin/ordenes-form');
-    
-    }
-    // loadcustomers(page: number = 1, filter: string = ''): void {
-    //   const subscription = this.customerService.getCustomers(page, this.pageSize).subscribe(response => {
-    //     this.totalCustomer = response.result.totalElements;
-    //     this.customers = response.result.content; 
-    //     this.dataSource = new MatTableDataSource(this.customers);
-    //     this.dataSource.sort = this.sort!;
-    //     this.dataSource.paginator = this.paginator!;
-    //     console.log(response);
-    //   });
-    //   this.subscriptions.add(subscription); 
-    // }
-    loadOrdenes(page: number = 1, filter: string = ''): void {
-      const subscription = this.ordenesService.getCustomers(page, this.pageSize).subscribe(response => {
-        this.totalCustomer = response.result.totalElements;
-        this.ordenes = response.result.content;
-        this.dataSource = new MatTableDataSource(this.ordenes);
-        this.dataSource.sort = this.sort!;
-        this.dataSource.paginator = this.paginator!;
-        console.log(response);
-      });
-      this.subscriptions.add(subscription);
-    }
-    searchText: string = '';
-    currentPage: number = 1;
-    itemsPerPage: number = 5;
-    paginatedUsers: any[] = [];
-    totalPages: number | undefined;
-    ngOnInit() {
-    this.userRole = localStorage.getItem('role'); // Obtener el rol del localStorage
-      this.menuCtrl.enable(true, 'main-menu'); // Activa el menú al cargar la página
-      // this.loadcustomers();
-      this.loadOrdenes();
-      if (this.paginator) {
-        this.subscriptions.add(
-          this.paginator.page.subscribe(() => this.onPageChange({ pageIndex: this.paginator!.pageIndex, pageSize: this.pageSize, length: this.totalCustomer }))
-        );
-      }
-  
-      if (this.sort) {
-        this.subscriptions.add(
-          this.sort.sortChange.subscribe(() => {
-            this.dataSource.sort = this.sort!;
-          })
-        );
-      }
-    }
-  
-  
+  info(id: string){
+    this.navController.navigateForward(`admin/ordenes-form/${id}`);
+  }
 
+  nuevo(){
+    this.navController.navigateForward('admin/ordenes-form');
+  }
+
+  loadOrdenes(page: number = 1, filter: string = ''): void {
+    const subscription = this.ordenesService.getCustomers(page, this.pageSize).subscribe(response => {
+      this.totalCustomer = response.result.totalElements;
+      this.ordenes = response.result.content;
+      this.dataSource = new MatTableDataSource(this.ordenes);
+      this.dataSource.sort = this.sort!;
+      this.dataSource.paginator = this.paginator!;
+      console.log(response);
+    });
+    this.subscriptions.add(subscription);
+  }
+
+  ngOnInit() {
+    this.userRole = localStorage.getItem('role');
+    this.menuCtrl.enable(true, 'main-menu');
+    this.loadOrdenes();
+    if (this.paginator) {
+      this.subscriptions.add(
+        this.paginator.page.subscribe(() => this.onPageChange({
+          pageIndex: this.paginator!.pageIndex, 
+          pageSize: this.pageSize, 
+          length: this.totalCustomer
+        }))
+      );
+    }
+
+    if (this.sort) {
+      this.subscriptions.add(
+        this.sort.sortChange.subscribe(() => {
+          this.dataSource.sort = this.sort!;
+        })
+      );
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Aquí te aseguras de que los datos se recarguen cuando la vista se haya inicializado
+    this.loadOrdenes();  // Asegúrate de que la llamada sea en ngAfterViewInit también si es necesario
+    this.dataSource.paginator = this.paginator!;
+    this.dataSource.sort = this.sort!;
+    console.log('Ordenes cargadas:', this.ordenes);
+  }
 }

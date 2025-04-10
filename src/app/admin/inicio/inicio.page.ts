@@ -54,41 +54,29 @@ deletePokemon: any;
       observer.observe(this.loadTrigger.nativeElement);
     }
   }
-  // loadPokemons() {
-  //   if (this.loading) return;
-  //   this.loading = true;
-  //   this.subscriptions.add(
 
-  //     this.pokemonService.getPokemons(this.limit, this.offset).subscribe((response) => {
-  //       response.results.forEach((pokemon: any, index: number) => {
-  //         const id = this.offset + index + 1;
-  //         this.pokemons.push({
-  //           name: pokemon.name,
-  //           image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
-  //         });
-  //       });
-  
-  //       this.offset += this.limit;
-  //       this.loading = false;
-  //     })
-  //   );
-  // }
   loadOrdenes(){
     if (this.loading) return;
     this.loading = true;
     this.subscriptions.add(
 
-      this.ordnesService.getCustomers(this.limit, this.offset).subscribe((response) => {
+      this.ordnesService.getEntregasDriver(this.limit, this.offset).subscribe((response) => {
         console.log(response)
         let total = response.result.totalElements;
         response.result.content.forEach((orden: any, index: number) => {
-          const id = this.offset + index + 1;
           if(this.ordenes.length <= total){
 
             this.ordenes.push({
               numeration: orden.numeration,
               customer: orden.customer.firstNames + ' ' + orden.customer.lastNames,
-              id: orden.id
+              id: orden.id,
+              deliveryStatus: orden.deliveryStatus.name,
+              paymentType: orden.paymentType.name,
+              total: orden.total,
+              deliveryDate: orden.deliveryDate,
+              invoiceNumber: orden.invoiceNumber,
+              observations: orden.observations,
+              comments: orden.comments
             });
           }
         });

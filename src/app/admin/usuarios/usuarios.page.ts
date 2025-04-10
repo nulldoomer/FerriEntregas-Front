@@ -38,7 +38,7 @@ throw new Error('Method not implemented.');
   constructor(    private navController: NavController, private UserService: userService, private menuCtrl: MenuController   ) { }
 
   UserS: User[] = [];
-  displayedColumns: string[] = ['rol', 'nombres', 'apellidos',  'acciones'];
+  displayedColumns: string[] = ['img', 'rol', 'nombres', 'apellidos',  'acciones'];
   dataSource = new MatTableDataSource<any>();
   totalCustomer: number = 0;
   pageSize: number = 5;
