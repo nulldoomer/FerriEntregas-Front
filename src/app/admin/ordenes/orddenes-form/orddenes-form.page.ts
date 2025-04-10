@@ -30,9 +30,11 @@ throw new Error('Method not implemented.');
   deliveryStatusNames: DelieveryStatus[] = []
   users: User[] = []
 files: File[] = [];
+evidencesTotal: number = 0; 
   usersSelected: User | undefined
   photo: string | null = null;
   url: string[] = [];
+  evidenciaImagen: string = '';
   evidenciasRequest: {deliveryId: string, url: string[]} = {deliveryId: '', url: []};
   evidence: {id:string, url:string}[] = [];
 
@@ -73,7 +75,26 @@ files: File[] = [];
   orden: OrdenesRequest | undefined;
   id: string = '';
   titulo: string = 'Agregar Usuario';
+  imagenActual: number = 0;
 
+  anteriorImagen() {
+    if (this.imagenActual > 0) {
+      this.imagenActual--;
+    } else {
+      this.imagenActual = this.evidencesTotal - 1; // Vuelve al final
+    }
+    console.log(this.imagenActual)
+  }
+  
+  siguienteImagen() {
+    if (this.imagenActual < this.evidencesTotal - 1) {
+      this.imagenActual++;
+    } else {
+      this.imagenActual = 0; // Regresa al inicio
+    }
+    console.log(this.imagenActual)
+
+  }
   constructor(private modalController: ModalController, private fb: FormBuilder, private ordenesService: OrdenesService,
     private route: ActivatedRoute,  private navController: NavController, private deliveryStatus: DelieveryService, private userService: userService, private customerService: CustomerService, private imagenesService: ImagenesService, private evidenciasService: EvidenciasService
   ) {
@@ -86,7 +107,7 @@ files: File[] = [];
       estimateHourEnd: ['', Validators.required],
       deliveryStatusName: ['', Validators.required],
       paymentType: ['', Validators.required],
-      credit: ['', Validators.required],
+      credit: ['0', Validators.required],
       total: ['', Validators.required],
       user: ['', Validators.required],
       customer: ['', Validators.required],
@@ -245,7 +266,10 @@ files: File[] = [];
             evidence: response.result.evidence ?? [] // Ensure evidence is always an array
         };
         console.log(this.orden.deliveryStatus)
-  
+        this.imagenActual = this.orden.evidence.length  -1;
+        this.evidencesTotal = this.orden.evidence.length;
+        console.log(this.orden.evidence.length)
+        this.evidenciaImagen = 'si hay evidencia';
         // Validar si existen user y customer antes de acceder a id
         this.usersSelected = this.users.find(user => user.id === this.orden?.userId) ?? undefined;
         this.customersSelected = this.customers.find(customer => customer.id === this.orden?.customerId) ?? undefined;

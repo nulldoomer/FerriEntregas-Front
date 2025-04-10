@@ -55,17 +55,20 @@ deletePokemon: any;
     }
   }
 
-  loadOrdenes(){
-    if (this.loading) return;
+  loadOrdenes() {
+    if (this.loading) return; // Evitar carga adicional mientras se está cargando
     this.loading = true;
+    
+    // Realiza la solicitud con el offset y limit
     this.subscriptions.add(
-
-      this.ordnesService.getEntregasDriver(this.limit, this.offset).subscribe((response) => {
-        console.log(response)
+      this.ordnesService.getEntregasDriver(this.offset, this.limit).subscribe((response) => {
+        console.log(response);
+  
         let total = response.result.totalElements;
-        response.result.content.forEach((orden: any, index: number) => {
-          if(this.ordenes.length <= total){
-
+        
+        // Aquí simplemente añadimos los nuevos elementos sin cambiar limit
+        response.result.content.forEach((orden: any) => {
+          if (this.ordenes.length < total) {
             this.ordenes.push({
               numeration: orden.numeration,
               customer: orden.customer.firstNames + ' ' + orden.customer.lastNames,
@@ -81,12 +84,17 @@ deletePokemon: any;
           }
         });
   
+        console.log(this.ordenes);
+  
+        // Aumentar el offset para la próxima carga
         this.offset += this.limit;
+        
+        // Desactivar la bandera de loading
         this.loading = false;
       })
     );
-
   }
+  
 
 
   goToNotificationsPage() {

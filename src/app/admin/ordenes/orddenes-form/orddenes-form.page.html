@@ -322,8 +322,25 @@
   </div> -->
   @if ((orden?.evidence ?? []).length > 0) {
 
-    <img [src]="orden?.evidence?.[0]?.url ?? ''" alt="eviendecia">
+    <img [src]="orden?.evidence?.[evidencesTotal - 1]?.url ?? ''" alt="eviendecia">
   }
+  <!-- @if ((orden?.evidence ?? []).length > 0) {
+
+    <div  class="text-center space-y-4">
+      <div class="flex justify-center gap-4 items-center mt-2">
+        <button type="button" (click)="anteriorImagen()" class="text-2xl font-bold">&lt;</button>
+        <span>{{ imagenActual + 1 }} / {{ evidencesTotal }}</span>
+        <button type="button" (click)="siguienteImagen()" class="text-2xl font-bold">&gt;</button>
+      </div>
+      <img
+      [src]="orden?.evidence?.[imagenActual]?.url ?? ''"
+  alt="Evidencia"
+  class="w-full max-w-xs mx-auto rounded-xl shadow-md"
+/>
+
+    
+    </div>
+  } -->
   <!-- PARA WEB -->
   <div class="">
     <label class="block mb-2 text-[var(--dark)]">Adjuntar Archivos</label>
