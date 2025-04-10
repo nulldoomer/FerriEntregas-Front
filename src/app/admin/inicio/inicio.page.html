@@ -130,7 +130,7 @@
     <ion-item-sliding *ngFor="let orden of ordenes">
 
       <ion-item class="my-3">
-        <ion-label>{{ orden.numeration | titlecase }}</ion-label>
+        <ion-label>{{ orden.invoiceNumber | titlecase }}</ion-label>
         <ion-label class="!text-xs">{{ orden.customer | titlecase }}</ion-label>
         <ion-label>{{ orden.total | currency: 'USD' }}</ion-label>
       </ion-item>
