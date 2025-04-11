@@ -3,7 +3,7 @@ import { ToastService } from './toast.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable, tap } from 'rxjs';
-import { OrdenesListResponse, OrdenesRequest, OrdenesResponse, OrdenesResult } from 'src/interfaces/ordenes.interface';
+import { OrdenesListResponse, OrdenesRequest, OrdenesResponse, OrdenesResult, OrdenesStatus } from 'src/interfaces/ordenes.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +77,21 @@ export class OrdenesService {
      );
    }
    updateCustomer(orden: OrdenesRequest): Observable<OrdenesResponse> {
+     return this.http.put<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${orden.id}`, orden).pipe(
+       tap(
+         (response: OrdenesResponse) => {
+           if (response.success) {
+             this.toastService.showToast('Orden actualizada con éxito', 'success');
+           }
+         }
+       ),
+       catchError(error => {
+         this.toastService.showToast('Error al realizar el pago', 'error');
+         throw error;
+       })
+     );
+   }
+   updateEstado(orden: OrdenesStatus): Observable<OrdenesResponse> {
      return this.http.put<OrdenesResponse>(`${environment.apiUrlBase}/deliveries/${orden.id}`, orden).pipe(
        tap(
          (response: OrdenesResponse) => {

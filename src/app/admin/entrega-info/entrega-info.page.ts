@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal, NavController } from '@ionic/angular';
 import { OrdenesService } from 'src/app/services/ordenes.service';
 import { OcrService } from 'src/app/services/ors.service';
@@ -7,6 +7,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { evideceRequest, Evidencia, EvidenciasResponse } from 'src/interfaces/evidencias.interface';
 import { EvidenciasService } from 'src/app/services/evidencias.service';
+import { OrdenesStatus } from 'src/interfaces/ordenes.interface';
 
 @Component({
   selector: 'app-entrega-info',
@@ -18,6 +19,11 @@ export class EntregaInfoPage implements OnInit {
   @ViewChild('modal', { static: true }) modal!: IonModal;
   extractedText: string | null = null;
   orden: any;
+  status: OrdenesStatus = {
+    id: '',
+    deliveryStatus: 'Entregado'
+
+  }
   id: string = '';
   rutaA: string = '';  // Latitud
   rutaB: string = '';  // Longitud
@@ -53,6 +59,7 @@ siguienteImagen() {
     private ordenesService: OrdenesService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
+    private router: Router,
     private imagenesService: ImagenesService,
     private evideciasService: EvidenciasService
   ) {}
@@ -122,6 +129,13 @@ siguienteImagen() {
       } else {
         console.error("No se encontró addressMaps en la respuesta");
       }
+    });
+  }
+  changeStatus() {
+    console.log(this.status);
+    this.status.id = this.id;
+    this.ordenesService.updateEstado( this.status).subscribe(response => {
+      this.router.navigate(['admin/inicio']);
     });
   }
   

@@ -18,6 +18,10 @@ export interface OrdenesRequest {
   observations: string;
   comments: string;
 }
+export interface OrdenesStatus{
+  id: string;
+  deliveryStatus: string;
+}
 // {
 //   "numeration": "1234",
 //   "invoiceNumber": "3",
