@@ -24,8 +24,8 @@ export class EmailService {
       );
     }
   veryEmail(token: string): Observable<any> {
-    const body = { 'token':token }
-      return this.http.post<any>(`${environment.apiUrlBase}/user/email-verification`, body).pipe(
+    const body = { 'token': token }
+      return this.http.post<any>(`${environment.apiUrlBase}/users/email-verification`, body).pipe(
         tap(res => {
             this.toastService.showToast('Correo verificado', 'success');
         }),
